@@ -1,6 +1,5 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { setWeb3, unsetWeb3 } from 'src/stores/WalletStore'
-// import { GlobalContext } from 'pages/_app'
 
 import CircleSpinner from '../animations/CircleSpinner'
 import Metamask from '../../assets/metamask.svg'
@@ -118,7 +117,7 @@ export default function WalletInterface({
               : 'cursor-not-allowed',
             connectingWallet === wallet &&
               'border-transparent bg-blue-500 text-gray-100',
-            'flex-grow p-2 text-lg text-black dark:text-gray-300 dark:border-gray-500 border-2 rounded-lg border-gray-100 font-sf-compact-medium'
+            'flex-grow p-2 text-lg text-black dark:text-gray-300 dark:border-gray-500 border-2 rounded-lg border-gray-200 font-sf-compact-medium'
           )}
         >
           <div className="flex flex-row items-center">
@@ -176,7 +175,7 @@ export default function WalletInterface({
       <div className="flex flex-row items-center mx-4 mb-4 ">
         {!active && <DotRed className="w-3 h-3" />}
         {active && <DotGreen className="w-3 h-3" />}
-        <p className="ml-2 text-gray-200">
+        <p className="ml-2 text-black">
           {active ? 'Connected with: ' : 'Not connected'}
           {active && (
             <A
@@ -197,7 +196,7 @@ export default function WalletInterface({
               active
                 ? 'hover:border-transparent hover:bg-blue-500 hover:text-gray-100 cursor-pointer'
                 : 'cursor-not-allowed',
-              'p-2 text-xs text-center border-2 rounded-lg text-gray-200 dark:border-gray-500 border-gray-100 font-sf-compact-medium'
+              'p-2 text-xs text-center border-2 rounded-lg text-gray-600 dark:border-gray-500 border-gray-200 font-sf-compact-medium'
             )}
           >
             Disconnect

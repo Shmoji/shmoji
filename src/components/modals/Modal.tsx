@@ -1,6 +1,6 @@
 import { Transition } from '@headlessui/react'
 import { ReactNode, useEffect } from 'react'
-import { XCircleIcon } from '@heroicons/react/solid'
+import { XIcon } from '@heroicons/react/solid'
 import classNames from 'classnames'
 
 export default function Modal({
@@ -58,11 +58,11 @@ export default function Modal({
             <div className="flex pb-2">
               <button
                 type="button"
-                className="p-2 ml-auto text-white transition duration-150 ease-in-out rounded-xl w-9 h-9 bg-very-dark-blue hover:text-gray-500 focus:outline-none focus:text-gray-500"
+                className="p-2 ml-auto text-white transition duration-150 ease-in-out rounded-xl w-9 h-9 bg-blue-900 hover:text-gray-500 focus:outline-none focus:text-gray-500"
                 aria-label="Close"
                 onClick={close}
               >
-                <XCircleIcon className="w-full h-full" />
+                <XIcon className="w-full h-full" />
               </button>
             </div>
             <div className="overflow-hidden bg-white dark:bg-gray-700 rounded-lg">

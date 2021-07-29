@@ -24,9 +24,9 @@ export default function WalletModal({ close }: { close: () => void }) {
   }
 
   return (
-    <Modal close={() => closeModal(false)} className="w-3/5">
-      <div className="p-4 bg-top-mobile">
-        <p className="text-2xl text-center text-gray-300 md:text-3xl font-gilroy-bold">
+    <Modal close={() => closeModal(false)} className="w-96">
+      <div className="p-4">
+        <p className="text-2xl text-center text-black md:text-3xl">
           {' '}
           Payment Method
         </p>
