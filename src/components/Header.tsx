@@ -1,44 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
 import { Router, useRouter } from 'next/dist/client/router'
 import { useState, useEffect } from 'react'
-import WalletStatus from 'src/components/wallet/WalletStatus'
+import WalletStatus from 'components/wallet/WalletStatus'
 import { MenuIcon, XCircleIcon } from '@heroicons/react/solid'
 import NProgress from 'nprogress'
 import A from './A'
-import ModalService from 'src/components/modals/ModalService'
+import ModalService from 'components/modals/ModalService'
 import WalletModal from './wallet/WalletModal'
 import classNames from 'classnames'
+
+type MenuItemType = {
+  name: string,
+  value: string,
+  onClick: () => void,
+  isSelected: boolean,
+}
 
 export default function Header() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
   const router = useRouter()
   const closeMenu = () => setIsMobileNavOpen(false)
-  const menuItems = [
-    {
-      name: 'Whitepaper',
-      value: 'about',
-      onClick: () => window.open('https://docs.ideamarket.io', '_blank'),
-      isSelected: false,
-    },
-    {
-      name: 'Wallet',
-      value: 'wallet',
-      onClick: () => router.push('/account'),
-      isSelected: router.pathname === '/account',
-    },
-    {
-      name: 'Community',
-      value: 'community',
-      onClick: () => window.open('https://discord.gg/zaXZXGE4Ke', '_blank'),
-      isSelected: false,
-    },
-    {
-      name: 'Grants',
-      value: 'grants',
-      onClick: () => window.open('http://grants.ideamarket.io/', '_blank'),
-      isSelected: false,
-    },
-  ]
+  const menuItems: MenuItemType[] = []
 
   useEffect(() => {
     NProgress.configure({ trickleSpeed: 100 })
@@ -58,20 +40,14 @@ export default function Header() {
 
   return (
     <>
-      <nav className="fixed top-0 z-20 w-full shadow bg-top-desktop">
+      <nav className="fixed top-0 z-20 w-full shadow bg-black">
         <div className="px-2 mx-auto transform max-w-88 md:max-w-304">
           <div className="relative flex items-center justify-between h-16">
             <div
               className="z-20 flex items-center flex-shrink-0 cursor-pointer"
               onClick={() => router.push('/')}
             >
-              <img
-                className="block w-auto h-8"
-                src="/logo.png"
-                alt="Workflow logo"
-              />
-
-              <span className="w-auto h-full text-2xl leading-none text-white md:text-3xl font-gilroy-bold">
+              <span className="w-auto h-full text-2xl leading-none text-white md:text-3xl">
                 Shmoji
               </span>
             </div>
@@ -88,7 +64,7 @@ export default function Header() {
                     'cursor-pointer inline-flex items-center px-1 text-lg font-medium leading-5 tracking-tighter transition duration-150 ease-in-out focus:outline-none focus:text-gray-700 focus:border-gray-300',
                     menuItem.isSelected
                       ? 'text-white'
-                      : 'text-gray-100 text-opacity-60 hover:text-gray-200'
+                      : 'text-brand-gray text-opacity-60 hover:text-brand-gray-2'
                   )}
                 >
                   {menuItem.name}
@@ -140,7 +116,7 @@ export default function Header() {
                   'cursor-pointer block py-2 pl-3 pr-4 mt-1 text-base font-medium transition duration-150 ease-in-out border-l-4 border-transparent hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300',
                   menuItem.isSelected
                     ? 'text-white'
-                    : 'text-gray-100 text-opacity-60'
+                    : 'text-brand-gray text-opacity-60'
                 )}
               >
                 {menuItem.name}
