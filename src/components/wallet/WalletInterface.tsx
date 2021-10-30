@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { setWeb3, unsetWeb3 } from 'src/stores/WalletStore'
+import { setWeb3, unsetWeb3 } from 'stores/WalletStore'
 
 import CircleSpinner from '../animations/CircleSpinner'
 import Metamask from '../../assets/metamask.svg'
@@ -11,7 +11,7 @@ import DotRed from '../../assets/dotred.svg'
 import DotGreen from '../../assets/dotgreen.svg'
 
 import classNames from 'classnames'
-import A from 'src/components/A'
+import A from 'components/A'
 import { useWeb3React } from '@web3-react/core'
 import {
   resetWalletConnector,

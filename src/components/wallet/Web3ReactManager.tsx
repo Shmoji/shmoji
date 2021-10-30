@@ -1,4 +1,4 @@
-import { useEagerConnect, useInactiveListener } from 'src/components/wallet/WalletHooks'
+import { useEagerConnect, useInactiveListener } from 'components/wallet/WalletHooks'
 
 export default function Web3ReactManager({
   children,
