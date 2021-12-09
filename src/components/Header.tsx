@@ -40,7 +40,7 @@ export default function Header() {
 
   return (
     <>
-      <nav className="fixed top-0 z-20 w-full shadow bg-black">
+      <nav className="fixed top-0 z-20 w-full md:px-8 shadow dark:bg-dark3 border-b dark:border-dark1">
         <div className="px-2 mx-auto transform max-w-88 md:max-w-304">
           <div className="relative flex items-center justify-between h-16">
             <div

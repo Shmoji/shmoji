@@ -6,6 +6,7 @@ import { Web3ReactProvider } from '@web3-react/core'
 import Web3 from 'web3'
 import Web3ReactManager from 'components/wallet/Web3ReactManager'
 import ModalRoot from 'components/modals/ModalRoot'
+import { ThemeProvider } from 'next-themes'
 // import { WrongNetworkOverlay } from 'components'
 
 function getLibrary(provider: any): Web3 {
@@ -23,15 +24,17 @@ function MyApp({ Component, pageProps }: AppProps) {
     ).layoutProps?.Layout || Fragment
   
   return (
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <Web3ReactManager>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </Web3ReactManager>
-      {/* <WrongNetworkOverlay /> */}
-      <ModalRoot />
-    </Web3ReactProvider>
+    <ThemeProvider attribute="class" defaultTheme="dark">
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <Web3ReactManager>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </Web3ReactManager>
+        {/* <WrongNetworkOverlay /> */}
+        <ModalRoot />
+      </Web3ReactProvider>
+    </ThemeProvider>
   )
 }
 export default MyApp
