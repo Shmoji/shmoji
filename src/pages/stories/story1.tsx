@@ -1,6 +1,8 @@
 import classNames from "classnames"
 import A from "components/A"
-import { useState } from "react"
+import { GetServerSideProps } from "next"
+import { useRouter } from "next/dist/client/router"
+import { useEffect, useState } from "react"
 
 const textList = [
   { isAppend: false, text: 'A girl by the name of Ash paced around her room while lost in thought.' },
@@ -103,20 +105,27 @@ const textList = [
   { isAppend: false, text: '"Hmm, I’m gonna go play Animal Crossing."' },
 ]
 
-const Story1 = () => {
+type Props = {
+  initialTextIndex: number
+}
+
+const Story1 = ({ initialTextIndex }: Props) => {
+  const router = useRouter()
+
   const [textIndex, setTextIndex] = useState(0)
-  const [text, setText] = useState([textList[0].text])
+  const [text, setText] = useState([])
   const [isAnimRunning, setIsAnimRunning] = useState(true)
 
-  const onBackPressed = () => {
-    const newTextIndex = textIndex - 1
+  const onBackPressed = (index: number) => {
+    const newTextIndex = index - 1
     setTextIndex(newTextIndex)
 
     // If prev text is append, then go back until not append and display all of that as text list
     if (textList[newTextIndex].isAppend) {
       let loopedList = []
 
-      if (textList[textIndex].isAppend) {
+      // On page load, text is empty, so cannot use this 1st condition
+      if (text.length !== 0 && textList[index].isAppend) {
         loopedList = text
         loopedList.pop()
       } else {
@@ -146,6 +155,9 @@ const Story1 = () => {
     const newTextIndex = textIndex + 1
     setTextIndex(newTextIndex)
 
+    // Change URL query param without page refresh using shallow
+    router.push(`/stories/story1?textIndex=${textIndex}`, `/stories/story1?textIndex=${newTextIndex}`, { shallow: true })
+
     const newText =
       textList[newTextIndex].isAppend
       ? [...text, textList[newTextIndex].text]
@@ -162,11 +174,26 @@ const Story1 = () => {
     setIsAnimRunning(false)
   }
 
+  const isValidTextIndex = initialTextIndex && initialTextIndex >= 0 && initialTextIndex < textList.length
+
+  useEffect(() => {
+    if (isValidTextIndex) onBackPressed(initialTextIndex + 1)
+  }, [initialTextIndex])
+
+  if (!isValidTextIndex) {
+    return <div className="text-center">Invalid text index</div>
+  }
+
   return (
     <div className="w-screen h-screen overflow-hidden dark:bg-gray-900">
       <div className="w-full flex justify-center pt-8">
         <button
-          onClick={onBackPressed}
+          onClick={() => {
+            // Change URL query param without page refresh using shallow
+            // Putting push outside onBackPressed since it is also used on page load with different values
+            router.push(`/stories/story1?textIndex=${textIndex}`, `/stories/story1?textIndex=${textIndex - 1}`, { shallow: true })
+            onBackPressed(textIndex)
+          }}
           disabled={textIndex <= 0}
           className={classNames(
             textIndex <= 0 ? 'bg-gray-200 text-black cursor-not-allowed' : 'bg-blue-600 text-white',
@@ -175,10 +202,7 @@ const Story1 = () => {
         >
           Back
         </button>
-        <button
-          onClick={onBackPressed}
-          className="p-3 rounded mr-2 bg-red-500 text-white"
-        >
+        <button className="p-3 rounded mr-2 bg-red-500 text-white">
           <A href="/stories">Exit</A>
         </button>
         <button
@@ -218,3 +242,11 @@ const Story1 = () => {
 }
 
 export default Story1
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return {
+    props: {
+      initialTextIndex: Number(context.query.textIndex),
+    },
+  }
+}
