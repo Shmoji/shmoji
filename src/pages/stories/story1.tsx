@@ -1,5 +1,6 @@
 import classNames from "classnames"
 import A from "components/A"
+import Header from "components/Header"
 import { GetServerSideProps } from "next"
 import { useRouter } from "next/dist/client/router"
 import { useEffect, useState } from "react"
@@ -113,12 +114,16 @@ const Story1 = ({ initialTextIndex }: Props) => {
   const router = useRouter()
 
   const [textIndex, setTextIndex] = useState(0)
+  const [savedIndex, setSavedIndex] = useState(null)  // This is index stored in localstorage
   const [text, setText] = useState([])
   const [isAnimRunning, setIsAnimRunning] = useState(true)
 
   const onBackPressed = (index: number) => {
     const newTextIndex = index - 1
     setTextIndex(newTextIndex)
+    setSavedIndex(newTextIndex)
+    const oldBookmarks = JSON.parse(localStorage.getItem('bookmarks')).filter(b => b.story !== 1) || []
+    localStorage.setItem('bookmarks', JSON.stringify([{ story: 1, textIndex: newTextIndex }, ...oldBookmarks]))
 
     // If prev text is append, then go back until not append and display all of that as text list
     if (textList[newTextIndex].isAppend) {
@@ -154,6 +159,9 @@ const Story1 = ({ initialTextIndex }: Props) => {
     
     const newTextIndex = textIndex + 1
     setTextIndex(newTextIndex)
+    setSavedIndex(newTextIndex)
+    const oldBookmarks = JSON.parse(localStorage.getItem('bookmarks')).filter(b => b.story !== 1) || []
+    localStorage.setItem('bookmarks', JSON.stringify([{ story: 1, textIndex: newTextIndex }, ...oldBookmarks]))
 
     // Change URL query param without page refresh using shallow
     router.push(`/stories/story1?textIndex=${textIndex}`, `/stories/story1?textIndex=${newTextIndex}`, { shallow: true })
@@ -174,14 +182,45 @@ const Story1 = ({ initialTextIndex }: Props) => {
     setIsAnimRunning(false)
   }
 
-  const isValidTextIndex = initialTextIndex && initialTextIndex >= 0 && initialTextIndex < textList.length
+  const isValidTextIndex = initialTextIndex !== null && initialTextIndex >= 0 && initialTextIndex < textList.length
 
   useEffect(() => {
-    if (isValidTextIndex) onBackPressed(initialTextIndex + 1)
+    const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || []
+    if (isValidTextIndex) {
+      localStorage.setItem('bookmarks', JSON.stringify([{ story: 1, textIndex: initialTextIndex }, ...bookmarks.filter(b => b.story !== 1)]))
+      setSavedIndex(initialTextIndex)
+      onBackPressed(initialTextIndex + 1)
+    } else {
+      // On 1st load, if invalid or no text index is provided
+      const savedIndex = bookmarks.find(bookmark => bookmark.story === 1).textIndex
+      setSavedIndex(savedIndex)
+    }
   }, [initialTextIndex])
 
   if (!isValidTextIndex) {
-    return <div className="text-center">Invalid text index</div>
+    return (
+      <div className="min-h-screen py-20 bg-white dark:bg-dark3 dark:text-white">
+        <Header />
+        <div>
+          <div className="w-screen h-screen overflow-hidden dark:bg-dark3">
+            <div className="flex flex-col justify-center items-center space-y-6 pt-8">
+              <div className="text-2xl font-bold">Self Inflicted Rules</div>
+              <button className="bg-blue-600 text-white rounded p-3">
+                <A href="/stories/story1?textIndex=0">Start from beginning</A>
+              </button>
+              {savedIndex !== null && (
+                <button className="bg-blue-600 text-white rounded p-3">
+                  <A href={`/stories/story1?textIndex=${savedIndex}`}>Continue where you left off</A>
+                </button>
+              )}
+              <button className="bg-red-600 text-white rounded p-3">
+                <A href="/stories">See all stories</A>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -203,7 +242,7 @@ const Story1 = ({ initialTextIndex }: Props) => {
           Back
         </button>
         <button className="p-3 rounded mr-2 bg-red-500 text-white">
-          <A href="/stories">Exit</A>
+          <A href="/stories/story1">Exit</A>
         </button>
         <button
           onClick={onNextPressed}
@@ -236,7 +275,6 @@ const Story1 = ({ initialTextIndex }: Props) => {
           })}
         </div>
       </div>
-      
     </div>
   )
 }

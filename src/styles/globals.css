@@ -27,8 +27,8 @@ a {
   background-clip: padding-box, text;
   background-repeat: no-repeat;
   animation: 
-    /* Speed it is typed at is controlled by .01s */
-    t calc(var(--n) * .01s) steps(var(--n)) forwards;
+    /* Speed it is typed at is controlled by .02s */
+    t calc(var(--n) * .02s) steps(var(--n)) forwards;
 }
 @keyframes t {
   from { background-size: 0 200% }

@@ -1,6 +1,9 @@
 import classNames from "classnames"
 import A from "components/A"
-import { useState } from "react"
+import Header from "components/Header"
+import { GetServerSideProps } from "next"
+import { useRouter } from "next/dist/client/router"
+import { useEffect, useState } from "react"
 
 const textList = [
   { isAppend: false, text: 'Everybody dies, that is just the cycle of life.' },
@@ -183,20 +186,31 @@ const textList = [
   
 ]
 
-const Story2 = () => {
+type Props = {
+  initialTextIndex: number
+}
+
+const Story2 = ({ initialTextIndex }: Props) => {
+  const router = useRouter()
+
   const [textIndex, setTextIndex] = useState(0)
-  const [text, setText] = useState([textList[0].text])
+  const [savedIndex, setSavedIndex] = useState(null)  // This is index stored in localstorage
+  const [text, setText] = useState([])
   const [isAnimRunning, setIsAnimRunning] = useState(true)
 
-  const onBackPressed = () => {
-    const newTextIndex = textIndex - 1
+  const onBackPressed = (index: number) => {
+    const newTextIndex = index - 1
     setTextIndex(newTextIndex)
+    setSavedIndex(newTextIndex)
+    const oldBookmarks = JSON.parse(localStorage.getItem('bookmarks')).filter(b => b.story !== 2) || []
+    localStorage.setItem('bookmarks', JSON.stringify([{ story: 2, textIndex: newTextIndex }, ...oldBookmarks]))
 
     // If prev text is append, then go back until not append and display all of that as text list
     if (textList[newTextIndex].isAppend) {
       let loopedList = []
 
-      if (textList[textIndex].isAppend) {
+      // On page load, text is empty, so cannot use this 1st condition
+      if (text.length !== 0 && textList[index].isAppend) {
         loopedList = text
         loopedList.pop()
       } else {
@@ -225,6 +239,12 @@ const Story2 = () => {
     
     const newTextIndex = textIndex + 1
     setTextIndex(newTextIndex)
+    setSavedIndex(newTextIndex)
+    const oldBookmarks = JSON.parse(localStorage.getItem('bookmarks')).filter(b => b.story !== 2) || []
+    localStorage.setItem('bookmarks', JSON.stringify([{ story: 2, textIndex: newTextIndex }, ...oldBookmarks]))
+
+    // Change URL query param without page refresh using shallow
+    router.push(`/stories/story2?textIndex=${textIndex}`, `/stories/story2?textIndex=${newTextIndex}`, { shallow: true })
 
     const newText =
       textList[newTextIndex].isAppend
@@ -242,11 +262,57 @@ const Story2 = () => {
     setIsAnimRunning(false)
   }
 
+  const isValidTextIndex = initialTextIndex !== null && initialTextIndex >= 0 && initialTextIndex < textList.length
+
+  useEffect(() => {
+    const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || []
+    if (isValidTextIndex) {
+      localStorage.setItem('bookmarks', JSON.stringify([{ story: 2, textIndex: initialTextIndex }, ...bookmarks.filter(b => b.story !== 2)]))
+      setSavedIndex(initialTextIndex)
+      onBackPressed(initialTextIndex + 1)
+    } else {
+      // On 1st load, if invalid or no text index is provided
+      const savedIndex = bookmarks.find(bookmark => bookmark.story === 2)?.textIndex
+      setSavedIndex(savedIndex ? savedIndex : null)
+    }
+  }, [initialTextIndex])
+
+  if (!isValidTextIndex) {
+    return (
+      <div className="min-h-screen py-20 bg-white dark:bg-dark3 dark:text-white">
+        <Header />
+        <div>
+          <div className="w-screen h-screen overflow-hidden dark:bg-dark3">
+            <div className="flex flex-col justify-center items-center space-y-6 pt-8">
+              <div className="text-2xl font-bold">Life, Death, and Science - A Short Story</div>
+              <button className="bg-blue-600 text-white rounded p-3">
+                <A href="/stories/story2?textIndex=0">Start from beginning</A>
+              </button>
+              {savedIndex !== null && (
+                <button className="bg-blue-600 text-white rounded p-3">
+                  <A href={`/stories/story2?textIndex=${savedIndex}`}>Continue where you left off</A>
+                </button>
+              )}
+              <button className="bg-red-600 text-white rounded p-3">
+                <A href="/stories">See all stories</A>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="w-screen h-screen overflow-hidden dark:bg-gray-900">
       <div className="w-full flex justify-center pt-8">
         <button
-          onClick={onBackPressed}
+          onClick={() => {
+            // Change URL query param without page refresh using shallow
+            // Putting push outside onBackPressed since it is also used on page load with different values
+            router.push(`/stories/story2?textIndex=${textIndex}`, `/stories/story2?textIndex=${textIndex - 1}`, { shallow: true })
+            onBackPressed(textIndex)
+          }}
           disabled={textIndex <= 0}
           className={classNames(
             textIndex <= 0 ? 'bg-gray-200 text-black cursor-not-allowed' : 'bg-blue-600 text-white',
@@ -255,11 +321,8 @@ const Story2 = () => {
         >
           Back
         </button>
-        <button
-          onClick={onBackPressed}
-          className="p-3 rounded mr-2 bg-red-500 text-white"
-        >
-          <A href="/stories">Exit</A>
+        <button className="p-3 rounded mr-2 bg-red-500 text-white">
+          <A href="/stories/story2">Exit</A>
         </button>
         <button
           onClick={onNextPressed}
@@ -292,9 +355,16 @@ const Story2 = () => {
           })}
         </div>
       </div>
-      
     </div>
   )
 }
 
 export default Story2
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return {
+    props: {
+      initialTextIndex: Number(context.query.textIndex),
+    },
+  }
+}
