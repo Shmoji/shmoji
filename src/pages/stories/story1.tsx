@@ -192,7 +192,7 @@ const Story1 = ({ initialTextIndex }: Props) => {
       onBackPressed(initialTextIndex + 1)
     } else {
       // On 1st load, if invalid or no text index is provided
-      const savedIndex = bookmarks.find(bookmark => bookmark.story === 1).textIndex
+      const savedIndex = bookmarks.find(bookmark => bookmark.story === 1)?.textIndex
       setSavedIndex(savedIndex)
     }
   }, [initialTextIndex])
