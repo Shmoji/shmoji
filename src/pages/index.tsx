@@ -8,7 +8,7 @@ const categories = [
   { name: 'Music', href: '/music' },
   { name: 'Stories', href: '/stories' },
   { name: 'Mystery', href: '/mystery' },
-  { name: 'Health', href: '/health' },
+  // { name: 'Health', href: '/health' },
 ]
 
 export default function Home() {
