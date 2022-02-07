@@ -1,1 +1,1 @@
-Oof, I haven't found the time to fill this out yet
+Hey, what's up. I code stuff here.
