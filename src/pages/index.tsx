@@ -9,8 +9,10 @@ const categories = [
   { name: 'Stories', href: '/stories' },
   { name: 'Mystery', href: '/mystery' },
   // { name: 'Health', href: '/health' },
+  { name: 'All Projects', href: '/projects' },
 ]
 
+// This page is curated by me to make certain projects stick out more than others. The All Projects page can be used to just show a list of all projects
 export default function Home() {
   return (
     <div className="text-center px-4">

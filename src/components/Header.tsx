@@ -8,6 +8,7 @@ import A from './A'
 import ModalService from 'components/modals/ModalService'
 import WalletModal from './wallet/WalletModal'
 import classNames from 'classnames'
+import Discord from '../assets/discord.svg'
 
 type MenuItemType = {
   name: string,
@@ -47,9 +48,20 @@ export default function Header() {
               className="z-20 flex items-center flex-shrink-0 cursor-pointer"
               onClick={() => router.push('/')}
             >
-              <span className="w-auto h-full text-2xl leading-none text-white md:text-3xl">
+              <img src="/ShmojiChibiTransparent.png" className="w-12" alt="shmoji-icon" />
+              <span className="w-auto h-full ml-2 text-2xl leading-none text-white md:text-3xl">
                 Shmoji
               </span>
+            </div>
+
+            <div
+              onClick={() => {
+                window.open('https://discord.com/invite/7kdQcuf', '_blank')
+              }}
+              className="flex items-center space-x-2 cursor-pointer"
+            >
+              <Discord className="w-6 h-6" />
+              <div>Join Discord</div>
             </div>
 
             <div className="absolute hidden w-full space-x-8 text-center md:inline">
@@ -71,9 +83,11 @@ export default function Header() {
                 </A>
               ))}
             </div>
+
             <div className="z-20 hidden md:ml-6 md:flex md:items-center">
               <WalletStatus openModal={() => ModalService.open(WalletModal)} />
             </div>
+
             <div className="flex items-center -mr-2 md:hidden">
               <button
                 className="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500"
