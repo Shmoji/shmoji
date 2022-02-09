@@ -10,6 +10,7 @@ const categories = [
   { name: 'Mystery', href: '/mystery' },
   // { name: 'Health', href: '/health' },
   { name: 'All Projects', href: '/projects' },
+  { name: 'All Socials', href: '/socials' },
 ]
 
 // This page is curated by me to make certain projects stick out more than others. The All Projects page can be used to just show a list of all projects
