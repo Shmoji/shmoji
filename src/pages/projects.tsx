@@ -12,6 +12,8 @@ const Projects = () => {
         <span><A href="/music">Music</A></span>
         <span><A href="/stories">Stories</A></span>
         <span><A href="/LibraryOfCreations">Library of Creations</A></span>
+        <span><A href="/QuestionWiki">Question Wiki</A></span>
+        <span><A href="/DiscoverReality">Discover Reality</A></span>
       </div>
     </div>
   )
