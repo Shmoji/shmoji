@@ -14,6 +14,11 @@ const Projects = () => {
         <span><A href="/LibraryOfCreations">Library of Creations</A></span>
         <span><A href="/QuestionWiki">Question Wiki</A></span>
         <span><A href="/DiscoverReality">Discover Reality</A></span>
+        <span><A href="/meaningless">Meaningless</A></span>
+        <span><A href="/health">Health and Longevity</A></span>
+        <span><A href="https://www.youtube.com/channel/UC5QhJUgOzl_jfwsUfLpbVjw">Clips to Remember</A></span>
+        <span><A href="https://www.youtube.com/channel/UC3bco-T1j1MnDqfOMdPOC8g">Lofi With Shmoji</A></span>
+        <span><A href="https://www.youtube.com/channel/UCvcAi3crny6675g266JxCDQ">Life of Shmoji</A></span>
       </div>
     </div>
   )
