@@ -7,6 +7,7 @@ const categories = [
   { name: 'Gaming', href: '/gaming'  },
   { name: 'Music', href: '/music' },
   { name: 'Stories', href: '/stories' },
+  { name: 'Puzzles', href: '/puzzles' },
   { name: 'Mystery', href: '/mystery' },
   // { name: 'Health', href: '/health' },
   { name: 'All Projects', href: '/projects' },
