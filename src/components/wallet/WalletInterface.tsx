@@ -117,7 +117,7 @@ export default function WalletInterface({
               : 'cursor-not-allowed',
             connectingWallet === wallet &&
               'border-transparent bg-blue-500 text-gray-100',
-            'flex-grow p-2 text-lg text-black dark:text-gray-300 dark:border-gray-500 border-2 rounded-lg border-gray-200 font-sf-compact-medium'
+            'flex-grow p-2 text-lg text-black dark:text-gray-300 dark:border-gray-500 border-2 rounded-lg border-gray-200'
           )}
         >
           <div className="flex flex-row items-center">
@@ -175,7 +175,7 @@ export default function WalletInterface({
       <div className="flex flex-row items-center mx-4 mb-4 ">
         {!active && <DotRed className="w-3 h-3" />}
         {active && <DotGreen className="w-3 h-3" />}
-        <p className="ml-2 text-black">
+        <p className="ml-2 text-black dark:text-white">
           {active ? 'Connected with: ' : 'Not connected'}
           {active && (
             <A

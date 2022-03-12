@@ -6,9 +6,9 @@ import { MenuIcon, XCircleIcon } from '@heroicons/react/solid'
 import NProgress from 'nprogress'
 import A from './A'
 import ModalService from 'components/modals/ModalService'
-import WalletModal from './wallet/WalletModal'
 import classNames from 'classnames'
 import Discord from '../assets/discord.svg'
+import WalletModal from './wallet/WalletModal'
 
 type MenuItemType = {
   name: string,
