@@ -1,19 +1,28 @@
 import { getPuzzleSolutions } from 'lib/models/getPuzzleSolutions'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { PuzzleMap } from 'utils/puzzles'
 
 type Data = {
-  name: string
+  isSolved: boolean
 }
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  const puzzle = Number(req.query.puzzle) as PuzzleMap
+  const solution = req.query.solution
 
-  // Check if answer is correct (answers stored in DB)
+  // Get array of answers stored in DB
   const solutions = await getPuzzleSolutions()
 
-  // If correct, store: "wallet": { puzzlesSolved: [PUZZLES.CODE_1_1] }
+  let isSolved = false
 
-  res.status(200).json({ name: 'John Doe' })
+  // If user's solution is correct, store: "wallet": { puzzlesSolved: [PUZZLES.CODE_1_1] }
+  if (solutions[puzzle] === solution) {
+    console.log('YO, you solved it')
+    isSolved = true
+  }
+
+  res.status(200).json({ isSolved })
 }
