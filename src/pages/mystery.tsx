@@ -1,11 +1,20 @@
-import A from "components/A"
 import DefaultLayout from "components/layouts/DefaultLayout"
+import Tooltip from "components/tooltips/Tooltip"
+import Eyeball from '../assets/eyeball.svg'
 
 const mystery = () => {
   return (
-    <div>
-      <span>Photons hit your eyes as you read this text on a screen. These photons contain information that is transported to your brain. This squishy thing contains a family of neurons. Somehow this family creates your ego; your perception; what you probably consider to be you. They take in the photons and somehow understand the information.</span>
-      <span>So...what actually makes you...you?</span>
+    <div className="w-2/4 mx-auto">
+      <div className="flex flex-col space-y-1">
+        <div>Photons hit your eyes as you read this text on a screen.</div>
+        <div>These photons contain information that is transported to your brain.</div>
+        <div>This squishy thing contains a family of neurons.</div>
+        <div>Somehow this family creates your ego; your perception; what you probably consider to be you.</div>
+        <div>They take in the photons and somehow understand the information.</div>
+        <div>So...what actually makes you...<Tooltip tooltipContent={<Eyeball className="w-24" />}>you</Tooltip>?</div>
+      </div>
+
+      
     </div>
   )
 }
