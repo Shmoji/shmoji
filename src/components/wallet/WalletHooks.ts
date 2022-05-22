@@ -19,29 +19,29 @@ export function useEagerConnect() {
   useEffect(() => {
     let isCancelled = false
 
-    async function connectToDID() {
-      const ceramic = new CeramicClient("https://ceramic-clay.3boxlabs.com")
-      const threeID = await ThreeIdProvider.create({
-        authId: 'shmojiAuthID1',
-        authSecret: process.env.NEXT_PUBLIC_AUTH_SECRET,
-        // See the section above about permissions management
-        getPermission: (request) => Promise.resolve(request.payload.paths),
-      } as any)
+    // async function connectToDID() {
+    //   const ceramic = new CeramicClient("https://ceramic-clay.3boxlabs.com")
+    //   const threeID = await ThreeIdProvider.create({
+    //     authId: 'shmojiAuthID1',
+    //     authSecret: process.env.NEXT_PUBLIC_AUTH_SECRET,
+    //     // See the section above about permissions management
+    //     getPermission: (request) => Promise.resolve(request.payload.paths),
+    //   } as any)
 
-      const did = new DID({
-        provider: threeID.getDidProvider(),
-        resolver: {
-          ...get3IDResolver(ceramic),
-          ...getKeyResolver(),
-        },
-      })
+    //   const did = new DID({
+    //     provider: threeID.getDidProvider(),
+    //     resolver: {
+    //       ...get3IDResolver(ceramic),
+    //       ...getKeyResolver(),
+    //     },
+    //   })
     
-      // Authenticate the DID using the 3ID provider
-      await did.authenticate()
+    //   // Authenticate the DID using the 3ID provider
+    //   await did.authenticate()
       
-      ceramic.setDID(did)
-      setCeramic(ceramic) // Make sure to set this AFTER authenticating
-    }
+    //   ceramic.setDID(did)
+    //   setCeramic(ceramic) // Make sure to set this AFTER authenticating
+    // }
 
     async function run() {
       const walletStr = localStorage.getItem('WALLET_TYPE')
@@ -64,7 +64,7 @@ export function useEagerConnect() {
     }
 
     run()
-    connectToDID()  // Connect central app DID once at beginning of page load
+    // connectToDID()  // Connect central app DID once at beginning of page load
 
     return () => {
       isCancelled = true

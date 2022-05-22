@@ -14,7 +14,7 @@ export default function Family() {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="text-4xl text-bold mb-4">Page to immortalize the family of Shmoji</div>
+      <div className="text-4xl font-bold mb-4">Page to immortalize the family of Shmoji</div>
       {isFamily ? (
         <div className="flex flex-col items-center space-y-6 text-blue-500">
           <span><A href="/nana">Nana</A></span>

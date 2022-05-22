@@ -4,7 +4,7 @@ import DefaultLayout from "components/layouts/DefaultLayout"
 const Socials = () => {
   return (
     <div className="flex flex-col items-center">
-      <div className="text-4xl text-bold mb-8">Social Media</div>
+      <div className="text-4xl font-bold mb-8">Social Media</div>
       <div className="flex flex-col items-center space-y-6 text-blue-500">
         <span><A href="https://twitter.com/Shmojii">Twitter (10/10 active)</A></span>
         <span><A href="https://bit.ly/shmoji-discord">Discord (10/10 active)</A></span>

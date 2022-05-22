@@ -89,7 +89,7 @@ const History = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="text-4xl text-bold mb-4">History of Health Issues</div>
+      <div className="text-4xl font-bold mb-4">History of Health Issues</div>
       <div className="md:w-3/5 flex flex-col items-start space-y-6">
         {Dates.map((dateObj, dateObjInd) => {
           return (
