@@ -3,14 +3,45 @@ import { useWeb3React } from '@web3-react/core'
 import { setWeb3 } from 'stores/WalletStore'
 
 import { injected, connectorsById } from './Connectors'
+import { useCeramicStore } from 'stores/ceramicStore'
+import CeramicClient from '@ceramicnetwork/http-client'
+import { DID } from 'dids'
+import ThreeIdProvider from '3id-did-provider'
+import { getResolver as getKeyResolver } from 'key-did-resolver'
+import { getResolver as get3IDResolver } from '@ceramicnetwork/3id-did-resolver'
 
 export function useEagerConnect() {
   const { activate, active, library } = useWeb3React()
+  const setCeramic = useCeramicStore((state: any) => state.setCeramic)
 
   const [tried, setTried] = useState(false)
 
   useEffect(() => {
     let isCancelled = false
+
+    async function connectToDID() {
+      const ceramic = new CeramicClient("https://ceramic-clay.3boxlabs.com")
+      const threeID = await ThreeIdProvider.create({
+        authId: 'shmojiAuthID1',
+        authSecret: process.env.NEXT_PUBLIC_AUTH_SECRET,
+        // See the section above about permissions management
+        getPermission: (request) => Promise.resolve(request.payload.paths),
+      } as any)
+
+      const did = new DID({
+        provider: threeID.getDidProvider(),
+        resolver: {
+          ...get3IDResolver(ceramic),
+          ...getKeyResolver(),
+        },
+      })
+    
+      // Authenticate the DID using the 3ID provider
+      await did.authenticate()
+      
+      ceramic.setDID(did)
+      setCeramic(ceramic) // Make sure to set this AFTER authenticating
+    }
 
     async function run() {
       const walletStr = localStorage.getItem('WALLET_TYPE')
@@ -33,6 +64,7 @@ export function useEagerConnect() {
     }
 
     run()
+    connectToDID()  // Connect central app DID once at beginning of page load
 
     return () => {
       isCancelled = true
@@ -45,7 +77,7 @@ export function useEagerConnect() {
       setWeb3(library, undefined)
       setTried(true)
     }
-  }, [tried, active])
+  }, [tried, active, library])
 
   return tried
 }

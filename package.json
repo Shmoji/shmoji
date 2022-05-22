@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "3id-did-provider": "^1.1.1",
     "@3id/connect": "^0.2.5",
     "@ceramicnetwork/3id-did-resolver": "^1.4.16",
     "@ceramicnetwork/http-client": "^1.5.7",
