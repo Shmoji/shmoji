@@ -3,9 +3,8 @@ import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 import { FortmaticConnector } from '@web3-react/fortmatic-connector'
 import { PortisConnector } from '@web3-react/portis-connector'
-import { MAINNET, RINKEBY } from './networks/Networks'
 import { AbstractConnector } from '@web3-react/abstract-connector'
-import { NETWORK } from './networks/Networks'
+import { NETWORK } from 'stores/networks'
 
 const POLLING_INTERVAL = 12000
 const RPC_URLS: { [chainId: number]: string } = {
@@ -13,7 +12,7 @@ const RPC_URLS: { [chainId: number]: string } = {
 }
 
 export const injected = new InjectedConnector({
-  supportedChainIds: [1, 3, 4, 5, 42],
+  supportedChainIds: [1, 3, 4, 5, 42, 421611, 42161],
 })
 
 export const walletconnect = new WalletConnectConnector({
@@ -56,7 +55,7 @@ const isMainnet = NETWORK.getNetworkName() === 'mainnet'
 
 export const fortmatic = new FortmaticConnector({
   apiKey: isMainnet ? 'pk_live_B3A1A25FBF96DCB5' : 'pk_test_4F838B34CAE38BC8',
-  chainId: isMainnet ? MAINNET : RINKEBY,
+  chainId: isMainnet ? 1 : 4,
 })
 
 export const portis = new PortisConnector({
