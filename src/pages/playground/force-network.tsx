@@ -3,29 +3,6 @@ import WrongNetworkOverlay from "modules/web3/components/WrongNetworkOverlay"
 
 const ForceNetwork = () => {
 
-  const addTokenToMM = async () => {
-    try {
-      const { ethereum } = window as any
-      await ethereum.request({
-        method: 'wallet_watchAsset',
-        params: {
-          type: 'ERC20',
-          options: {
-            address: "0x6B175474E89094C44Da98b954EedeAC495271d0F",  // ERC20 token address
-            symbol: `DAI`,
-            decimals: 18,
-            image: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png',
-          },
-        },
-      })
-    } catch (ex) {
-      // We don't handle that error for now
-      // Might be a different wallet than Metmask
-      // or user declined
-      console.error(ex)
-    }
-  }
-
   return (
     <div className="md:w-3/5 mx-auto mt-6">
 
