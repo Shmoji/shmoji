@@ -1,5 +1,6 @@
 import DefaultLayout from "components/layouts/DefaultLayout"
 import WrongNetworkOverlay from "modules/web3/components/WrongNetworkOverlay"
+import { NETWORK } from "stores/networks"
 
 const ForceNetwork = () => {
 
@@ -10,7 +11,7 @@ const ForceNetwork = () => {
 
       <div className="text-center">
         <div className="mb-4">This is a web3 app, what&apos;s up?!</div>
-        <div>When connected to a wallet on this page, you will be forced to use the <b>Ethereum Mainnet</b> network</div>
+        <div>When connected to a wallet on this page, you will be forced to use the <b>{NETWORK.getHumanReadableNetworkName()}</b> network</div>
       </div>
 
       <WrongNetworkOverlay />
