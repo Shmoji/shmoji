@@ -8,6 +8,7 @@ const stories = () => {
       <ul className="text-blue-500 text-center">
         <li className="mb-2"><A href="/stories/story1">1: Self Inflicted Rules</A></li>
         <li className="mb-2"><A href="/stories/story2">2: Life, Death, and Science - A Short Story</A></li>
+        <li className="mb-2"><A href="/stories/story3">3: Reality from the Perspective of a Human</A></li>
       </ul>
     </div>
   )
