@@ -10,7 +10,7 @@ const categories = [
   { name: 'Playground', href: '/playground' },
   // { name: 'Puzzles', href: '/puzzles' },
   // { name: 'Mystery', href: '/mystery' },
-  // { name: 'Health', href: '/health' },
+  { name: 'Health', href: '/health' },
   { name: 'All Projects', href: '/projects' },
   { name: 'All Socials', href: '/socials' },
 ]
