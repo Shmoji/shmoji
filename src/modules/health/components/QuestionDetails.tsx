@@ -44,18 +44,20 @@ const QuestionDetails = ({ questionURLCode }: Props) => {
           <div className="font-bold mt-4 mb-2">Tests I have tried:</div>
           <ul className="ml-5 list-disc">
             <li>ENT looked up my nose and saw mild inflammation, but they seemed to think it was normal.</li>
-            <li>2nd ENT looked up nose and saw a deviated septum. Waiting to hear how severe it is. They also saw inflammation.</li>
+            <li>2nd ENT looked up nose and saw a deviated septum. Waiting to hear how severe it is. They also saw inflammation. UPDATE: septum not the issue according to ENT</li>
             <li>Got a brain CT scan. Everything normal, but mild mucus thickening in sinuses. Did not seem important to docs. I got this CT scan at ER because I woke up to what seemed like a seizure. Uncontrollable muscles freaking out.</li>
-            <li>Got a brain MRI with and without contrast. Everything normal, but mild mucus thickening in sinuses. Docs said this is consistent with sinusitis, but that does not get me any closer to the root issue.</li>
+            <li>Got a brain MRI with and without contrast. Everything normal, but mild mucus thickening in sinuses. Online note said this is consistent with sinusitis, but that does not get me any closer to the root issue. Talked with ENT after getting MRI. She said it shows my issues are not caused by deviated septum. Not caused by nasal polyps.</li>
           </ul>
 
           <div className="font-bold mt-4 mb-2">Diagnosis I have considered:</div>
           <ul className="ml-5 list-disc">
-            <li>Sinusitis. I think I probably do have this, but it&apos;s not the root issue and I&apos;m determined to find and fix the root issue.</li>
+            <li>Sinusitis. I think I probably do have this, but it&apos;s not the root issue and I&apos;m determined to find and fix the root issue. UPDATE: after getting MRI, ENT said no sinusitis was shown, even though they kept using the term for my symptoms.</li>
             <li>Allergies of some sort. My prediction: 99% sure not allergies.</li>
             <li>Infection of some sort. My prediction: 99% sure not infection.</li>
             <li>Lupus. My prediction: idk, maybe, need tests from docs.</li>
-            <li>Deviated septum that causes many symptoms. My prediction: 75% chance this is what is going on. If the septum is severely deviated, it can block proper breathing. This can lead to ALL kinds of issues all over the body.</li>
+            <li>Deviated septum that causes many symptoms. My prediction: 5% chance this is what is going on. If the septum is severely deviated, it can block proper breathing. This can lead to ALL kinds of issues all over the body. After looking at MRI, my ENT said issues are not caused by deviated septum. She seemed pretty confident.</li>
+            <li>Nasal polyps. ENT said they would show in scans and nothing was seen.</li>
+            <li>Fungal infection like Candida Overgrowth. My prediction: I think there is 65% chance this is what Im dealing with. My ENT said no fungal growths were seen during scans and exams, but not sure if those are adequate based on research. I am getting checked for it in about a month.</li>
           </ul>
 
         </div>
