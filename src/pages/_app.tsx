@@ -1,6 +1,7 @@
 import 'tailwindcss/tailwind.css'
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { Fragment, ReactNode } from 'react'
 import { Web3ReactProvider } from '@web3-react/core'
 import Web3 from 'web3'
@@ -13,6 +14,8 @@ function getLibrary(provider: any): Web3 {
   return new Web3(provider)
 }
 
+const queryClient = new QueryClient()
+
 function MyApp({ Component, pageProps }: AppProps) {
   const Layout =
     (
@@ -24,17 +27,19 @@ function MyApp({ Component, pageProps }: AppProps) {
     ).layoutProps?.Layout || Fragment
   
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark">
-      <Web3ReactProvider getLibrary={getLibrary}>
-        <Web3ReactManager>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </Web3ReactManager>
-        {/* <WrongNetworkOverlay /> */}
-        <ModalRoot />
-      </Web3ReactProvider>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider attribute="class" defaultTheme="dark">
+        <Web3ReactProvider getLibrary={getLibrary}>
+          <Web3ReactManager>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </Web3ReactManager>
+          {/* <WrongNetworkOverlay /> */}
+          <ModalRoot />
+        </Web3ReactProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   )
 }
 export default MyApp
