@@ -29,7 +29,15 @@ const Questions = () => {
         </A>
 
         <A href={`/health/questions/${QUESTION_URL_CODES.BODY}`} className="text-blue-600">
-          Why do I sometimes feel sore and achy all over body?
+          Why do I always feel sore and achy all over body?
+        </A>
+
+        <A href={`/health/questions/${QUESTION_URL_CODES.KIDNEY}`} className="text-blue-600">
+          Why do my kidneys hurt sometimes?
+        </A>
+
+        <A href={`/health/questions/${QUESTION_URL_CODES.BURN}`} className="text-blue-600">
+          Why does my skin burn all over my body?
         </A>
 
       </div>

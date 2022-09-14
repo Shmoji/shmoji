@@ -8,6 +8,8 @@ export enum QUESTION_URL_CODES {
   EYES = 'eyes',
   HEAD = 'head',
   BODY = 'body',
+  KIDNEY = 'kidneys',
+  BURN = 'burning',
 }
 
 const SpecificQuestion = () => {
@@ -25,7 +27,13 @@ const SpecificQuestion = () => {
       return 'Why do I get bad head pain?'
     }
     if (questionURLCode === QUESTION_URL_CODES.BODY) {
-      return 'Why do I sometimes feel sore and achy all over body?'
+      return 'Why do I always feel sore and achy all over body?'
+    }
+    if (questionURLCode === QUESTION_URL_CODES.KIDNEY) {
+      return 'Why do my kidneys hurt sometimes?'
+    }
+    if (questionURLCode === QUESTION_URL_CODES.BURN) {
+      return 'Why does my skin burn all over my body?'
     }
   }
 

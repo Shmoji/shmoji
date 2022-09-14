@@ -39,6 +39,8 @@ const QuestionDetails = ({ questionURLCode }: Props) => {
             <li>Doctors had me try multiple different antibiotics (amoxicillan and Doxycycline). No luck. This makes me think it is most likely not an infection then.</li>
             <li>Tried antihistamines. Specifically, Claritin D. It helps with the feeling of inflammation under the skin, but only a little. Doesn&apos;t help with pain or pressure.</li>
             <li>Tried Flonase. It helps with pain and pressure a little bit, but only a bandage solution for keeping me out of ER.</li>
+            <li>Tried nasal irrigation using Methylene Blue. Supposed to be good against fungus. But no luck.</li>
+            <li>Tried nasal irrigation using Mupirocin, Gentamicin, and Itraconazole. One is an antifungal and the other 2 are antibiotics for resistant bacteria. No luck with them.</li>
           </ul>
 
           <div className="font-bold mt-4 mb-2">Tests I have tried:</div>
@@ -157,6 +159,41 @@ const QuestionDetails = ({ questionURLCode }: Props) => {
         </div>
       )}
 
+      {questionURLCode === QUESTION_URL_CODES.KIDNEY && (
+        <div>
+
+          <div className="font-bold mb-2">History and what I feel:</div>
+          <ul className="ml-5 list-disc">
+            <li>In 2017-2018 I started having weird health issues. Due to this, I started eating very healthy. What is something healthy that can be a snack? Peanuts. They are very high in oxalates and I ate them and other high-oxalate foods daily. This caused me to have kidney stones.</li>
+            <li>In early 2022, I randomly had kidney pain. It went away after acupuncture.</li>
+            <li>In late 2022, I got covid. After main symptoms went away I began peeing pure blood. This lasted a little longer than 1 week. Urgent care said I most likely got dehydrated during covid and that created kidney stones. I am skeptical it is stones because there is 2 different types of kidney pain I have experienced and one I am not certain is related to stones.</li>
+            <li>Present day (late 2022), I get dull pain in kidneys and a pressure feeling quite often. About 1-4/10 pain. In past, the stones I had hurt intensely and then got peed out. This pain is not sharp like that. So, what the heck is it and why did I pee blood for a week?</li>
+          </ul>
+
+          <div className="font-bold mb-2 mt-4">Tests I have tried:</div>
+          <ul className="ml-5 list-disc">
+            <li>When I was peeing blood, I had urinalysis and blood taken. Nothing pointed to kidney issues. Can find <A href="/health/data" className="text-blue-600">health data here</A>.</li>
+          </ul>
+
+        </div>
+      )}
+
+      {questionURLCode === QUESTION_URL_CODES.BURN && (
+        <div>
+
+          <div className="font-bold mb-2">What I feel:</div>
+          <ul className="ml-5 list-disc">
+            <li>Around June 2022, my head started feeling like it was burning. Also, had pressure and pin prick feeling. This got so bad it sent me to the ER. It is still really bad.</li>
+            <li>Around August 2022, that same burning feeling started happening all around my body. It seems to get intense some days and less intense other days. My forearms and back of the neck seem to get burning feeling very often.</li>
+          </ul>
+
+          <div className="font-bold mb-2 mt-4">Tests I have tried:</div>
+          <ul className="ml-5 list-disc">
+            <li>I have a dust allergy and grass pollen allergy, but they would not cause this according to allergist.</li>
+          </ul>
+
+        </div>
+      )}
       
     </>
   )
