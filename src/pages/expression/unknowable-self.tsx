@@ -11,7 +11,7 @@ const UnknowableSelf = () => {
           
         Just when I think I have a tiny part of the answer, it dissipates.
 
-        Feels like I'm trying to understand something that cannot be understood with logic.
+        Feels like I&apos;m trying to understand something that cannot be understood with logic.
 
         Oddly enough, when you let yourself simply exist without logic, it feels like self. 
 
