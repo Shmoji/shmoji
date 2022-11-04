@@ -168,12 +168,13 @@ const QuestionDetails = ({ questionURLCode }: Props) => {
             <li>In early 2022, I randomly had kidney pain. It went away after acupuncture.</li>
             <li>In late 2022, I got covid. After main symptoms went away I began peeing pure blood. This lasted a little longer than 1 week. Urgent care said I most likely got dehydrated during covid and that created kidney stones. I am skeptical it is stones because there is 2 different types of kidney pain I have experienced and one I am not certain is related to stones.</li>
             <li>Present day (late 2022), I get dull pain in kidneys and a pressure feeling quite often. About 1-4/10 pain. In past, the stones I had hurt intensely and then got peed out. This pain is not sharp like that. So, what the heck is it and why did I pee blood for a week?</li>
+            <li>November 2022: apparently dehydration during covid created kidney stone. Still in me right now. 6mm is the size. My main question is why do I chronically and easily form kidney stones. This is like my 6th or 7th one.</li>
           </ul>
 
-          <div className="font-bold mb-2 mt-4">Tests I have tried:</div>
+          {/* <div className="font-bold mb-2 mt-4">Tests I have tried:</div>
           <ul className="ml-5 list-disc">
             <li>When I was peeing blood, I had urinalysis and blood taken. Nothing pointed to kidney issues. Can find <A href="/health/data" className="text-blue-600">health data here</A>.</li>
-          </ul>
+          </ul> */}
 
         </div>
       )}
