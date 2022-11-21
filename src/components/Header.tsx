@@ -64,6 +64,13 @@ export default function Header() {
               <div>Join Discord</div>
             </div>
 
+            <A
+              href="/services/rent-a-friend"
+              className="flex items-center space-x-2 px-3 py-1 bg-blue-600 hover:bg-blue-800 text-white rounded-2xl cursor-pointer"
+            >
+              <div>Rent Me As Friend</div>
+            </A>
+
             <div className="absolute hidden w-full space-x-8 text-center md:inline">
               {menuItems.map((menuItem) => (
                 <A
