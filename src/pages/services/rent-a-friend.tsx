@@ -3,7 +3,7 @@ import DefaultLayout from "components/layouts/DefaultLayout"
 const RentAFriend = () => {
 
   return (
-    <div className="w-2/4 mx-auto">
+    <div className="w-full md:w-2/4 mx-auto">
 
       <div className="">
 
@@ -46,7 +46,7 @@ const RentAFriend = () => {
           <li>I saw story about Japanese man that does this and it motivated me. Here is that video:</li>
         </ul>
 
-        <iframe className="mt-4" width="560" height="315" src="https://www.youtube.com/embed/-ZbKzL6ikY8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />       
+        <iframe className="mt-4 max-w-full" width="560" height="315" src="https://www.youtube.com/embed/-ZbKzL6ikY8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />       
       
       </div>
 

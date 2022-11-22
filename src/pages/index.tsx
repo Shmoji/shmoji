@@ -12,6 +12,7 @@ const categories = [
   // { name: 'Mystery', href: '/mystery' },
   { name: 'Expression', href: '/expression' },
   { name: 'Health', href: '/health' },
+  { name: 'Services', href: '/services' },
   { name: 'All Projects', href: '/projects' },
   { name: 'All Socials', href: '/socials' },
 ]
