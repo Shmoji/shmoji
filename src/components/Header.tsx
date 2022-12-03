@@ -64,13 +64,6 @@ export default function Header() {
               <div>Join Discord</div>
             </div>
 
-            <A
-              href="/services/rent-a-friend"
-              className="hidden md:block flex items-center space-x-2 px-3 py-1 bg-blue-600 hover:bg-blue-800 text-white rounded-2xl cursor-pointer"
-            >
-              <div>Rent Me As Friend</div>
-            </A>
-
             <div className="absolute hidden w-full space-x-8 text-center md:inline">
               {menuItems.map((menuItem) => (
                 <A
@@ -143,13 +136,6 @@ export default function Header() {
                 {menuItem.name}
               </A>
             ))}
-
-            <A
-              href="/services/rent-a-friend"
-              className="flex justify-center items-center space-x-2 px-3 py-1 text-white rounded-2xl cursor-pointer"
-            >
-              <div>Rent Me As Friend</div>
-            </A>
 
             <div className="flex justify-center mt-5">
               <WalletStatus openModal={() => ModalService.open(WalletModal)} />

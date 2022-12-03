@@ -12,7 +12,7 @@ const Myspace = () => {
 
               <div className="text-3xl font-bold">Myspace Shmoji</div>
 
-              <div>come hangout with me virtually and watch music videos or funny videos that are not basic. we can meet on Meez or WeeWorld</div>
+              <div>come hangout with me virtually and watch music videos or funny videos. we can meet on Meez or WeeWorld</div>
             
               <iframe className="max-w-full" width="560" height="315" src="https://www.youtube.com/embed/vAjwuzb8ei0?autoplay=1"title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen
               />
