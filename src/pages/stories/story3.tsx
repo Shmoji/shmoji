@@ -71,7 +71,6 @@ const textList = [
   { isAppend: true, text: 'Well, your thoughts, emotions, and body all change over time; sometimes dramatically.' },
   { isAppend: true, text: 'However, one thing stays the same.' },
   { isAppend: true, text: 'You are always observing the events of your life.' },
-  { isAppend: true, text: 'You are always observing the events of your life.' },
   { isAppend: false, text: 'You observe the sun rise in the sky.' },
   { isAppend: true, text: 'You observe a thought appear in your mind as you lay in bed at night.' },
   { isAppend: true, text: 'You observe a physical sensation when touching a hot coffee cup.' },
