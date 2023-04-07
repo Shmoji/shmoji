@@ -6,8 +6,8 @@ export default function A(props: React.AllHTMLAttributes<HTMLAnchorElement>) {
 
   if (isInternalLink) {
     return (
-      <Link href={href} passHref={true}>
-        <a {...rest}>{children}</a>
+      <Link href={href} passHref={true} {...rest}>
+        {children}
       </Link>
     )
   }

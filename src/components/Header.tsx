@@ -85,7 +85,12 @@ export default function Header() {
             </div>
 
             <div className="z-20 hidden md:ml-6 md:flex md:items-center">
-              <WalletStatus openModal={() => ModalService.open(WalletModal)} />
+              {/* <WalletStatus openModal={() => ModalService.open(WalletModal)} /> */}
+              <A
+                href="/ContactMe"
+              >
+                📞 Contact Me
+              </A>
             </div>
 
             <div className="flex items-center -mr-2 md:hidden">
@@ -138,7 +143,12 @@ export default function Header() {
             ))}
 
             <div className="flex justify-center mt-5">
-              <WalletStatus openModal={() => ModalService.open(WalletModal)} />
+              {/* <WalletStatus openModal={() => ModalService.open(WalletModal)} /> */}
+              <A
+                href="/ContactMe"
+              >
+                📞 Contact Me
+              </A>
             </div>
           </div>
         </div>
