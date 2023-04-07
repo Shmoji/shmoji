@@ -6,7 +6,7 @@ import { PortisConnector } from '@web3-react/portis-connector'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { NETWORK } from 'stores/networks'
 
-const POLLING_INTERVAL = 12000
+// const POLLING_INTERVAL = 12000
 const RPC_URLS: { [chainId: number]: string } = {
   1: 'https://mainnet.infura.io/v3/3399077c10a24059be2a6c5b4fa77c03',
 }
@@ -19,7 +19,7 @@ export const walletconnect = new WalletConnectConnector({
   rpc: { 1: RPC_URLS[1] },
   bridge: 'https://bridge.walletconnect.org',
   qrcode: true,
-  pollingInterval: POLLING_INTERVAL,
+  // pollingInterval: POLLING_INTERVAL,
 })
 
 export const walletlink = new WalletLinkConnector({
@@ -28,27 +28,27 @@ export const walletlink = new WalletLinkConnector({
 })
 
 export function resetWalletConnector(connector: AbstractConnector) {
-  if (
-    connector &&
-    connector instanceof WalletConnectConnector &&
-    connector.walletConnectProvider?.wc?.uri
-  ) {
-    connector.walletConnectProvider = undefined
-  }
+  // if (
+  //   connector &&
+  //   connector instanceof WalletConnectConnector &&
+  //   connector.walletConnectProvider?.wc?.uri
+  // ) {
+  //   connector.walletConnectProvider = undefined
+  // }
 }
 
 export async function disconnectWalletConnector(connector: AbstractConnector) {
-  if (
-    connector &&
-    connector instanceof WalletConnectConnector &&
-    connector.walletConnectProvider?.wc?.uri
-  ) {
-    try {
-      await connector.walletConnectProvider.disconnect()
-    } catch (ex) {
-      console.log(ex)
-    }
-  }
+  // if (
+  //   connector &&
+  //   connector instanceof WalletConnectConnector &&
+  //   connector.walletConnectProvider?.wc?.uri
+  // ) {
+  //   try {
+  //     await connector.walletConnectProvider.disconnect()
+  //   } catch (ex) {
+  //     console.log(ex)
+  //   }
+  // }
 }
 
 const isMainnet = NETWORK.getNetworkName() === 'mainnet'
