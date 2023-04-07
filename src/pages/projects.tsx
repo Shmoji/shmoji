@@ -11,6 +11,7 @@ const Projects = () => {
         <span><A href="/ideamarket">Ideamarket</A></span>
         <span><A href="/gaming">Gaming</A></span>
         <span><A href="/music">Music</A></span>
+        <span><A href="/livestreaming">Livestreaming</A></span>
         <span><A href="/stories">Stories</A></span>
         <span><A href="/LibraryOfCreations">Library of Creations</A></span>
         <span><A href="/all41">All41 Protocol</A></span>
