@@ -11,7 +11,7 @@ const DesiredCommunities = () => {
 
       <div className="text-4xl font-bold mb-8">Desired Communities</div>
 
-      <div className="mb-8">This is a list of communities that i desire to exist and I'm working to help form</div>
+      <div className="mb-8">This is a list of communities that i desire to exist and I&apos;m working to help form</div>
 
       <div className="flex flex-col items-center space-y-6 text-blue-500">
         <A href="/communities/desired/reality-hub" className="p-3 bg-blue-600 text-white rounded">People storing their mind map (Reality Hub)</A>

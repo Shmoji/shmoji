@@ -12,7 +12,7 @@ const MarketplaceOfDesires = () => {
       <div className="text-4xl font-bold mb-8">Marketplace of Desires</div>
 
       <div className="flex flex-col items-center space-y-6">
-        <div>A place where people can store their desires, see other people's desires, and more.</div>
+        <div>A place where people can store their desires, see other people&apos;s desires, and more.</div>
       </div>
     </div>
   )

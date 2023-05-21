@@ -12,7 +12,7 @@ const InTheFeels = () => {
       <div className="text-4xl font-bold mb-8">In the Feels</div>
 
       <div className="flex flex-col items-center space-y-6">
-        <div>A place where people can store their feelings, see other people's feelings, and more. This includes physical and mental feelings.</div>
+        <div>A place where people can store their feelings, see other people&apos;s feelings, and more. This includes physical and mental feelings.</div>
       </div>
     </div>
   )
