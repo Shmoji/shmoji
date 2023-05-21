@@ -8,6 +8,7 @@ const categories = [
   { name: 'Music', href: '/music' },
   { name: 'Stories', href: '/stories' },
   { name: 'Playground', href: '/playground' },
+  { name: 'Communities', href: '/communities' },
   // { name: 'Puzzles', href: '/puzzles' },
   // { name: 'Mystery', href: '/mystery' },
   { name: 'Expression', href: '/expression' },
