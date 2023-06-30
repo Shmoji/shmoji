@@ -8,6 +8,8 @@ const Playground = () => {
 
       <div className="text-4xl font-bold mb-10 text-center">PLAYGROUND</div>
 
+      <div className="text-red-500 text-center text-sm mb-10">NOTE: many of these experiments may become depracated</div>
+
       <div className="text-center flex flex-col space-y-4">
         <A href="/playground/add-token-to-metamask">
           <button className="p-3 bg-blue-600 text-white rounded-lg">Add token to MetaMask</button>

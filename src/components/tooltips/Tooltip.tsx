@@ -12,7 +12,7 @@ export default function Tooltip({
 
   return (
     <div
-      className="inline relative pb-6"
+      className="inline relative"
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
     >

@@ -1,3 +1,4 @@
+import A from "components/A"
 import DefaultLayout from "components/layouts/DefaultLayout"
 import { useState } from "react"
 
@@ -5,16 +6,25 @@ const Suffer = () => {
   const [sufferCount, setSufferCount] = useState(0)
 
   return (
-    <div className="w-2/4 mx-auto">
+    <div className="flex flex-col items-center w-2/4 mx-auto">
+
+        <div className="flex items-center mb-4 text-gray-300">
+          <A href="/" className="text-blue-600 mr-1">home</A> / <A href="/expression" className="text-blue-600 mr-1 ml-1">expression</A> / <A href="/expression/suffer" className="ml-1">suffer</A>
+        </div>
 
       <div className="flex flex-col space-y-3">
+
+        
+
         <div className="text-red-500">Suffer counter: {sufferCount}</div>
+
         <div
           onClick={() => setSufferCount((prevCount) => prevCount + 1)}
           className="p-4 bg-red-500 hover:bg-red-700 rounded-2xl border-black font-bold cursor-pointer select-none"
         >
           Why must I suffer?
         </div>
+
         <div>If I die due to the bringer of suffering, what was the point?</div>
         <div>Why do some suffer more than others?</div>
         <div>What is the best step by step strategy to deal with suffering?</div>

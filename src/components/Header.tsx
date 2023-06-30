@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { Router, useRouter } from 'next/dist/client/router'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import WalletStatus from 'components/wallet/WalletStatus'
 import { MenuIcon, XCircleIcon } from '@heroicons/react/solid'
 import NProgress from 'nprogress'
@@ -9,6 +9,8 @@ import ModalService from 'components/modals/ModalService'
 import classNames from 'classnames'
 import Discord from '../assets/discord.svg'
 import WalletModal from './wallet/WalletModal'
+import ToggleSwitch from 'modules/forms/components/ToggleSwitch'
+import { GlobalContext } from 'lib/GlobalContext'
 
 type MenuItemType = {
   name: string,
@@ -18,6 +20,8 @@ type MenuItemType = {
 }
 
 export default function Header() {
+  const { isFunMode, setIsFunMode } = useContext(GlobalContext)
+
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
   const router = useRouter()
   const closeMenu = () => setIsMobileNavOpen(false)
@@ -63,6 +67,20 @@ export default function Header() {
               <Discord className="w-6 h-6" />
               <div>Join Discord</div>
             </div>
+
+            {/* <div className="flex items-center">
+
+              <div className="">FUN:</div>
+
+              <ToggleSwitch
+                isOn={isFunMode}
+                handleChange={(e) =>
+                  setIsFunMode(!isFunMode)
+                }
+                className="ml-2"
+              />
+
+            </div> */}
 
             <div className="absolute hidden w-full space-x-8 text-center md:inline">
               {menuItems.map((menuItem) => (
