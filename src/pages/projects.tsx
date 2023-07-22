@@ -23,6 +23,8 @@ const Projects = () => {
         <span><A href="https://www.youtube.com/channel/UC3bco-T1j1MnDqfOMdPOC8g">Lofi With Shmoji</A></span>
         <span><A href="/tries">Shmoji Tries</A></span>
         <span><A href="https://www.youtube.com/channel/UCvcAi3crny6675g266JxCDQ">Life of Shmoji</A></span>
+        <span><A href="/ShmojiPostsAnything">Shmoji Posts ANYTHING</A></span>
+        <span><A href="/ShmojiSpam">Shmoji Spam</A></span>
       </div>
     </div>
   )
