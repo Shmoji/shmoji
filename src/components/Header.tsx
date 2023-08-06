@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { Router, useRouter } from 'next/dist/client/router'
+import Image from 'next/image'
 import { useState, useEffect, useContext } from 'react'
 import WalletStatus from 'components/wallet/WalletStatus'
 import { MenuIcon, XCircleIcon } from '@heroicons/react/solid'
@@ -64,7 +65,8 @@ export default function Header() {
               }}
               className="flex items-center space-x-2 cursor-pointer"
             >
-              <Discord className="w-6 h-6" />
+              <Image src={Discord} alt="Discord" width={24} height={24} />
+              
               <div>Join Discord</div>
             </div>
 

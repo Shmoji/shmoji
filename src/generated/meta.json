@@ -1,0 +1,12 @@
+{
+  "generator": "Unity 2022.3.5f1, Needle Engine Integration @3.11.4-pre",
+  "allowHotReload": true,
+  "gzip": false,
+  "license": null,
+  "useRapier": true,
+  "needleEditor": null,
+  "sceneName": "Sample Scene",
+  "meta": null,
+  "absolutePath": "https://localhost:3000",
+  "deployOnly": false
+}

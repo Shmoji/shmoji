@@ -3,6 +3,7 @@ import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/solid";
 import A from "components/A";
 import DefaultLayout from "components/layouts/DefaultLayout";
 import Discord from '../assets/discord.svg'
+import Image from "next/image";
 
 
 const ContactMe = () => {
@@ -35,7 +36,7 @@ const ContactMe = () => {
               }}
               className="flex items-center space-x-2 cursor-pointer"
             >
-              <Discord className="w-6 h-6" />
+              <Image src={Discord} alt="Discord" width={24} height={24} />
               <div>click here to join Discord</div>
             </div>
 
