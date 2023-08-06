@@ -75,9 +75,9 @@ export enum ConnectorIds {
 
 export const connectorsById: { [connectorName in ConnectorIds]: any } = {
   [ConnectorIds.Injected]: injected,
-  [ConnectorIds.Metamask]: injected,
+  // [ConnectorIds.Metamask]: injected,
   [ConnectorIds.WalletConnect]: walletconnect,
-  [ConnectorIds.WalletLink]: walletlink,
+  // [ConnectorIds.WalletLink]: walletlink,
   [ConnectorIds.Coinbase]: walletlink,
   [ConnectorIds.Fortmatic]: fortmatic,
   [ConnectorIds.Portis]: portis,
