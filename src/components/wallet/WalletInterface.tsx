@@ -19,6 +19,7 @@ import {
   connectorsById,
   ConnectorIds,
 } from './Connectors'
+import Image from 'next/image'
 
 export default function WalletInterface({
   onWalletConnected,
@@ -146,35 +147,35 @@ export default function WalletInterface({
     <div className="relative overflow-hidden lg:min-w-100">
       <div className="transition-all duration-1000 ease-in-out">
         <WalletButton
-          svg={<Metamask className="w-8 h-8" />}
+          svg={<Image src={Metamask} alt="Discord" width={24} height={24} />}
           name="Metamask"
           wallet={ConnectorIds.Metamask}
         />
         <WalletButton
-          svg={<WalletConnect className="w-8 h-8" />}
+          svg={<Image src={WalletConnect} alt="Discord" width={24} height={24} />}
           name="WalletConnect"
           wallet={ConnectorIds.WalletConnect}
         />
         <WalletButton
-          svg={<Coinbase className="w-7 h-7" />}
+          svg={<Image src={Coinbase} alt="Discord" width={24} height={24} />}
           name="Coinbase"
           wallet={ConnectorIds.Coinbase}
         />
         <WalletButton
-          svg={<Fortmatic className="w-7 h-7" />}
+          svg={<Image src={Fortmatic} alt="Discord" width={24} height={24} />}
           name="Fortmatic"
           wallet={ConnectorIds.Fortmatic}
         />
         <WalletButton
-          svg={<Portis className="w-7 h-7" />}
+          svg={<Image src={Portis} alt="Discord" width={24} height={24} />}
           name="Portis"
           wallet={ConnectorIds.Portis}
         />
       </div>
       <hr className="m-4" />
       <div className="flex flex-row items-center mx-4 mb-4 ">
-        {!active && <DotRed className="w-3 h-3" />}
-        {active && <DotGreen className="w-3 h-3" />}
+        {!active && <Image src={DotRed} alt="Discord" width={24} height={24} />}
+        {active && <Image src={DotGreen} alt="Discord" width={24} height={24} />}
         <p className="ml-2 text-black dark:text-white">
           {active ? 'Connected with: ' : 'Not connected'}
           {active && (
