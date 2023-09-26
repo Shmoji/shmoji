@@ -19,7 +19,7 @@
 				"@glazed/did-datastore": "^0.2.3",
 				"@headlessui/react": "^1.3.0",
 				"@heroicons/react": "^1.0.1",
-				"@needle-tools/engine": "^3.11.4-beta",
+				"@needle-tools/engine": "^3.11.6",
 				"@uiw/react-codemirror": "^4.21.7",
 				"@web3-react/core": "^6.1.9",
 				"@web3-react/fortmatic-connector": "^6.1.6",
@@ -52,6 +52,7 @@
 		"devDependencies": {
 				"@needle-tools/helper": ">= 0.9.0 < 2.0.0",
 				"@types/react": "^18.0.33",
+				"@types/three": "^0.156.0",
 				"eslint": "7.28.0",
 				"eslint-config-next": "11.0.0"
 		}

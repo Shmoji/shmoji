@@ -2535,10 +2535,10 @@
   resolved "https://registry.yarnpkg.com/@multiformats/base-x/-/base-x-4.0.1.tgz#95ff0fa58711789d53aefb2590a8b7a4e715d121"
   integrity sha512-eMk0b9ReBbV23xXU693TAIrLyeO5iTgBZGSJfpqriG8UkYvr/hC9u9pyMlAakDNHWmbhMZCDs6KQO0jzKD8OTw==
 
-"@needle-tools/engine@^3.11.4-beta":
-  version "3.11.4-beta"
-  resolved "https://registry.yarnpkg.com/@needle-tools/engine/-/engine-3.11.4-beta.tgz#bd0b1370d1e8bb6c8af81a634784c8218e66aef7"
-  integrity sha512-kLo9Cqvdyv+JfCvw1udFSi4p5+428VGDhd9z3flynFAcyg56t9ljrRVHEWbDChcmrnxk+6M2BmP2wad/5ZGxmQ==
+"@needle-tools/engine@^3.11.6":
+  version "3.11.6"
+  resolved "https://registry.yarnpkg.com/@needle-tools/engine/-/engine-3.11.6.tgz#7c6e367ca2b16044560f2287149860e74d113747"
+  integrity sha512-D7dZ5KUISVArGr4YEIsSGzfmWaxaTx3m1ufD/sTuYNpTVpwylgEYPfSG7wlV4QA7RHugYT9I64ynPKUgPzTUeA==
   dependencies:
     "@dimforge/rapier3d-compat" "^0.9.0"
     flatbuffers "2.0.4"
@@ -2548,7 +2548,7 @@
     postprocessing "^6.32.1"
     simplex-noise "^4.0.1"
     stats.js "^0.17.0"
-    three "npm:@needle-tools/three@^0.154.1"
+    three "npm:@needle-tools/three@^0.154.3"
     three-mesh-ui "npm:@needle-tools/three-mesh-ui@^7.1.5-alpha.3"
     three.quarks "^0.7.3"
     uuid "^9.0.0"
@@ -3460,10 +3460,30 @@
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.1.tgz#20f18294f797f2209b5f65c8e3b5c8e8261d127c"
   integrity sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==
 
+"@types/stats.js@*":
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/@types/stats.js/-/stats.js-0.17.1.tgz#3066e95031f013b0e01d723fb7207c79fd75e6a0"
+  integrity sha512-OgfYE1x2w1jRUXzzKABX+kOdwz2y9PE0uSwnZabkWfJTWOzm7Pvfm4JI2xqRE0q2nwUe2jZLWcrcnhd9lQU63w==
+
+"@types/three@^0.156.0":
+  version "0.156.0"
+  resolved "https://registry.yarnpkg.com/@types/three/-/three-0.156.0.tgz#cd49f2a12e858400962ea818d1e1c45e638141a8"
+  integrity sha512-733bXDSRdlrxqOmQuOmfC1UBRuJ2pREPk8sWnx9MtIJEVDQMx8U0NQO5MVVaOrjzDPyLI+cFPim2X/ss9v0+LQ==
+  dependencies:
+    "@types/stats.js" "*"
+    "@types/webxr" "*"
+    fflate "~0.6.10"
+    meshoptimizer "~0.18.1"
+
 "@types/trusted-types@^2.0.2":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-2.0.3.tgz#a136f83b0758698df454e328759dbd3d44555311"
   integrity sha512-NfQ4gyz38SL8sDNrSixxU2Os1a5xcdFxipAFxYEuLUlvU2uDwS4NUpsImcf1//SlWItCVMMLiylsxbmNMToV/g==
+
+"@types/webxr@*":
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/@types/webxr/-/webxr-0.5.5.tgz#9e0a27e809c8f76cc1ef525d9f96b8fd94ef9c42"
+  integrity sha512-HVOsSRTQYx3zpVl0c0FBmmmcY/60BkQLzVnpE9M1aG4f2Z0aKlBWfj4XZ2zr++XNBfkQWYcwhGlmuu44RJPDqg==
 
 "@types/ws@^7.4.4":
   version "7.4.7"
@@ -7907,6 +7927,11 @@ fetch-blob@^3.1.2, fetch-blob@^3.1.4:
     node-domexception "^1.0.0"
     web-streams-polyfill "^3.0.3"
 
+fflate@~0.6.10:
+  version "0.6.10"
+  resolved "https://registry.yarnpkg.com/fflate/-/fflate-0.6.10.tgz#5f40f9659205936a2d18abf88b2e7781662b6d43"
+  integrity sha512-IQrh3lEPM93wVCEczc9SaAOvkmcoQn/G8Bo1e8ZPlY3X3bnAxWaBdvTdvM1hP62iZp0BXWDy4vTAy4fF0+Dlpg==
+
 file-entry-cache@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/file-entry-cache/-/file-entry-cache-6.0.1.tgz#211b2dd9659cb0394b073e7323ac3c933d522027"
@@ -10645,7 +10670,7 @@ merkle-patricia-tree@^2.1.2, merkle-patricia-tree@^2.3.2:
     rlp "^2.0.0"
     semaphore ">=1.0.1"
 
-meshoptimizer@^0.18.1:
+meshoptimizer@^0.18.1, meshoptimizer@~0.18.1:
   version "0.18.1"
   resolved "https://registry.yarnpkg.com/meshoptimizer/-/meshoptimizer-0.18.1.tgz#cdb90907f30a7b5b1190facd3b7ee6b7087797d8"
   integrity sha512-ZhoIoL7TNV4s5B6+rx5mC//fw8/POGyNxS/DZyCJeiZ12ScLfVwRE/GfsxwiTkMYYD5DmK2/JXnEVXqL4rF+Sw==
@@ -14505,7 +14530,7 @@ three@^0.146.0:
   resolved "https://registry.yarnpkg.com/three/-/three-0.146.0.tgz#fd80f0d128ab4bb821a02191ae241e4e6326f17a"
   integrity sha512-1lvNfLezN6OJ9NaFAhfX4sm5e9YCzHtaRgZ1+B4C+Hv6TibRMsuBAM5/wVKzxjpYIlMymvgsHEFrrigEfXnb2A==
 
-"three@npm:@needle-tools/three@^0.154.1", "three@npm:@needle-tools/three@^0.154.3":
+"three@npm:@needle-tools/three@^0.154.3":
   version "0.154.3"
   resolved "https://registry.yarnpkg.com/@needle-tools/three/-/three-0.154.3.tgz#2c5d289e0129792ef63ec4b0b716dc8394d878c3"
   integrity sha512-PlamEOaoax74cbnPEKyHPmwMe+S0LF2oB65zIUfA6pXj1xDsjg+8+J24cAGxhhcye88MdoNLEdcgcu8Kjuww1Q==

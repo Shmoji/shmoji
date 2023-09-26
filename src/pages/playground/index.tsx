@@ -11,6 +11,10 @@ const Playground = () => {
       <div className="text-red-500 text-center text-sm mb-10">NOTE: many of these experiments may become depracated</div>
 
       <div className="text-center flex flex-col space-y-4">
+        <A href="/playground/fps-experiment">
+          <button className="p-3 bg-blue-600 text-white rounded-lg">First Person Controller experiment</button>
+        </A>
+
         <A href="/playground/add-token-to-metamask">
           <button className="p-3 bg-blue-600 text-white rounded-lg">Add token to MetaMask</button>
         </A>

@@ -24,11 +24,13 @@ export default function NeedleEngine({ ...props }): JSX.Element {
   useEffect(() => {
     console.log('useEffect called')
     // lazy import the codegen if no explicit src is defined
-    if (!isServer() && props?.src === undefined) {
+    if (!isServer()) {
       import("../../../generated/gen")
         .then((m) => {
-          console.log('setting src to==', m.needle_exported_files)
-          setSrc(m.needle_exported_files)
+          if (props?.src === undefined) {
+              console.log('setting src to==', m.needle_exported_files)
+              setSrc(m.needle_exported_files)
+          }
         })
         .catch((e) => {
           console.error(e)
@@ -36,9 +38,9 @@ export default function NeedleEngine({ ...props }): JSX.Element {
     }
   }, [])
 
-  return (
-    <>
-      {!isServer() && <needle-engine src={src} {...props}></needle-engine>}
-    </>
-  );
+  if (!isServer()) {
+    return <needle-engine src={src} {...props}></needle-engine>
+  }
+
+  return null
 }

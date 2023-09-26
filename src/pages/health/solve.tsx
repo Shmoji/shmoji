@@ -15,7 +15,7 @@ const Solve = () => {
         <div className="font-bold italic">I have struggled with mysterious health issues for about 6 years now. Please help because the medical system sucks ass and can&apos;t figure anything out.</div>
 
         <A href="/health/questions" className="text-blue-600">❓ Questions to Solve</A>
-        <A href="/health/data" className="text-blue-600">📊 Health Data</A>
+        {/* <A href="/health/data" className="text-blue-600">📊 Health Data</A> */}
 
         {/* <A href="/health/issue-history" className="text-blue-600">History of Health Issues</A> */}
 

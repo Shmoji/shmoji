@@ -1,12 +1,16 @@
 {
-  "generator": "Unity 2022.3.5f1, Needle Engine Integration @3.11.4-pre",
   "allowHotReload": true,
   "gzip": false,
-  "license": null,
+  "generator": "Unity 2022.3.5f1, Needle Engine Integration @3.19.0",
   "useRapier": true,
+  "license": null,
   "needleEditor": null,
-  "sceneName": "Sample Scene",
-  "meta": null,
+  "sceneName": "FPS Experiment",
+  "meta": {
+    "title": "First Person Controller",
+    "description": "First person character with multiplayer capabilities",
+    "image": "include/FirstPersonController.jpg"
+  },
   "absolutePath": "https://localhost:3000",
   "deployOnly": false
 }

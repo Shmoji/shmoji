@@ -26,7 +26,7 @@ export default function Home() {
             left: '0',
             zIndex: '0'
           }}
-          // src=""
+          src="/assets/homePage.glb"
       />
 
       {isFunMode ? (
