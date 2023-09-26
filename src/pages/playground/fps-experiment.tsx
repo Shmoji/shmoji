@@ -23,9 +23,10 @@ export default function FPSExperiment() {
         <NeedleEngine
           loading-style="dark"
           style={{
-            // width: '100%',
-            // height: '100%',
+            width: '100%',
+            height: '100%',
             // position: 'fixed',
+            // display: 'block',
             // top: '0',
             // left: '0',
             zIndex: '0'
