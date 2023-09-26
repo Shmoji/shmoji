@@ -1,9 +1,9 @@
 import { getParam } from "@needle-tools/engine";
 import { EventDispatcher } from "three";
 
-const _changeEvent = { type: 'change' };
-const _lockEvent = { type: 'lock' }
-const _unlockEvent = { type: 'unlock' }
+const _changeEvent = { type: 'change' } as never;
+const _lockEvent = { type: 'lock' } as never
+const _unlockEvent = { type: 'unlock' } as never
 
 // https://github.com/mrdoob/three.js/blob/master/examples/jsm/controls/PointerLockControls.js
 // TODO: is it a good practice to maintain it's own version of PointerLock? Since we are only interested in the locking.
