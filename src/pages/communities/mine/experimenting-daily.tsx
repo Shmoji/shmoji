@@ -14,7 +14,7 @@ const ExperimentingDaily = () => {
       <div className="text-4xl font-bold mb-8">Experimenting Daily Discord</div>
 
       <div className="flex flex-col items-center space-y-6">
-        <div>Group chat for talking about the experiments you're trying</div>
+        <div>Group chat for talking about the experiments you&apos;re trying</div>
 
         <div
           onClick={() => {
