@@ -13,7 +13,7 @@ const Communities = () => {
 
       <div className="flex flex-col items-center space-y-6 text-blue-500">
         <A href="/communities/desired" className="p-3 bg-blue-600 text-white rounded">Desired Communities</A>
-        {/* <A href="/expression/myspace" className="p-3 bg-blue-600 text-white rounded">Myspace</A> */}
+        <A href="/communities/mine" className="p-3 bg-blue-600 text-white rounded">My Communities</A>
       </div>
     </div>
   )
