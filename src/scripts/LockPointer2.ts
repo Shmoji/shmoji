@@ -89,19 +89,19 @@ export class LockPointer2 extends EventDispatcher {
         if (LockPointer2.IsLocked === false)
 			return;
     
-        this.dispatchEvent( _changeEvent );
+        this.dispatchEvent( _changeEvent as never);
     }
     
     onPointerlockChange() {
     
         if (this.domElement.ownerDocument.pointerLockElement === this.domElement) {
     
-            this.dispatchEvent(_lockEvent);
+            this.dispatchEvent(_lockEvent as never);
             LockPointer2.IsLocked = true;
         } 
 		else {
     
-            this.dispatchEvent(_unlockEvent);
+            this.dispatchEvent(_unlockEvent as never);
             LockPointer2.IsLocked = false;
         }
     }

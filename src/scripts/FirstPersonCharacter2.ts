@@ -126,7 +126,7 @@ export class FirstPersonCharacter2 extends Behaviour {
     gamePadConnFn: any = null;
     gamePadDisconnFn: any = null;
     protected registerInput() {
-        this.pointerMoveFn ??= this.onPointerMove.bind(this);
+        this.pointerMoveFn ??= this.onPointerMove2.bind(this);
         this.gamePadConnFn ??= this.onGamepadConnected.bind(this);
         this.gamePadDisconnFn ??= this.onGamepadDisconnected.bind(this);
 
@@ -313,7 +313,7 @@ export class FirstPersonCharacter2 extends Behaviour {
         return input;
     }
 
-    protected onPointerMove(ptr: PointerEvent) {
+    protected onPointerMove2(ptr: PointerEvent) {
         if (ptr instanceof MouseEvent) {
             if (!LockPointer2.IsLocked || this.isMobile || !this.enabled)
                 return;
