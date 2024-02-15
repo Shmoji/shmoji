@@ -1,16 +1,11 @@
-import { serializable, Mathf, isMobileDevice, SyncedTransform, Camera, PlayerState, CapsuleCollider, PhysicsMaterial, CharacterController, Behaviour, registerType } from "@needle-tools/engine";
+import { serializable, Mathf, isMobileDevice, SyncedTransform, Camera, PlayerState, CapsuleCollider, PhysicsMaterial, CharacterController, Behaviour, Rigidbody } from "@needle-tools/engine";
 import { Vector2, Vector3, Object3D, MathUtils } from "three";
-import { LockPointerShmoji } from "./PointerLockShmoji"
+import { LockPointer2 } from "./LockPointer2";
 
-@registerType
-export class FirstPersonControllerShmoji extends Behaviour {
+export class FirstPersonCharacter2 extends Behaviour {
 
     @serializable(CharacterController)
-    controller?: CharacterController; 
-
-    // @type UnityEngine.PhysicMaterial
-    @serializable()
-    physicalMaterial?: PhysicsMaterial;
+    controller?: CharacterController;
 
     // used for vertical mouse movement. X rotational axis. Most probably the camera object.
     @serializable(Object3D)
@@ -23,10 +18,19 @@ export class FirstPersonControllerShmoji extends Behaviour {
     lookSensitivity: number = 1;
 
     @serializable()
-    movementSpeed: number = 5;
+    movementSpeed: number = 50;
 
     @serializable()
-    sprintSpeed: number = 10;
+    sprintSpeed: number = 80;
+
+    @serializable()
+    stoppingDecay: number = 7;
+
+    @serializable()
+    maxSpeed: number = 7;
+
+    @serializable()
+    maxSprintSpeed: number = 7;
 
     @serializable()
     jumpSpeed: number = 5;
@@ -53,13 +57,15 @@ export class FirstPersonControllerShmoji extends Behaviour {
     gamepadLookSensitivity: number = 50;
 
     protected playerState!: PlayerState;
+    protected syncedTransform!: SyncedTransform;
+    protected mainCamera!: Camera;
 
-    public lock!: LockPointerShmoji;
+    public lock!: LockPointer2;
 
     protected isMobile: boolean = false;
 
-    protected x : number = 0;
-    protected y : number = 0;
+    protected x: number = 0;
+    protected y: number = 0;
 
     protected lookInput = new Vector2();
     protected moveInput = new Vector2();
@@ -68,34 +74,35 @@ export class FirstPersonControllerShmoji extends Behaviour {
 
     protected gamepadIndex: number | null = null;
 
-    start(): void {
+    awake() {
         // networking - get player state
         this.playerState = this.gameObject.getComponent(PlayerState)!;
-        if(this.isMultiplayer() && !this.playerState.hasOwner) {
-            this.playerState.onFirstOwnerChangeEvent.addEventListener(() => this.initialize());
+        this.syncedTransform = this.gameObject.getComponent(SyncedTransform)!;
+        this.mainCamera = this.gameObject.getComponentInChildren(Camera)!;
+
+        if (this.isMultiplayer()) {
+            this.playerState.onOwnerChangeEvent.addEventListener(() => this.onOwnerChanged());
         }
         else {
-            this.initialize();
+            this.onOwnerChanged();
         }
     }
 
+    start() {
+        this.calculateYRot();
+    }
+
     private isInitialized = false;
-    initialize() {
+    protected initialize() {
         this.isInitialized = true;
 
         // rotation Y - get the root object
         this.yRotTarget = this.gameObject;
 
-        // apply physical material
-        const capsule = this.gameObject.getComponent(CapsuleCollider);
-        if(this.physicalMaterial && capsule) {
-            capsule.sharedMaterial = this.physicalMaterial;
-        }
-
         this.isMobile = isMobileDevice();
 
         // abbility to contrain the mouse to the middle of the screen
-        this.lock = new LockPointerShmoji(this.context.domElement);
+        this.lock = new LockPointer2(this.context.domElement);
 
         // adjust the sensitivity for mobile devices
         if (this.isMobile)
@@ -106,48 +113,63 @@ export class FirstPersonControllerShmoji extends Behaviour {
         if (density > 1)
             this.lookSensitivity *= density;
 
-        
+
         if (this.isMobile) {
             // ensure touch actions don't accidentally scroll/refresh the page
             this.context.domElement.style.userSelect = "none";
             this.context.domElement.style.touchAction = "none";
             this.context.renderer.domElement.style.touchAction = "none";
         }
+    }
+
+    pointerMoveFn: any = null;
+    gamePadConnFn: any = null;
+    gamePadDisconnFn: any = null;
+    protected registerInput() {
+        this.pointerMoveFn ??= this.onPointerMove.bind(this);
+        this.gamePadConnFn ??= this.onGamepadConnected.bind(this);
+        this.gamePadDisconnFn ??= this.onGamepadDisconnected.bind(this);
 
         // register mouse move events that work while being locked
-        this.context.domElement.removeEventListener("pointermove", this.onPointerMove)
-        if(this.enableDesktopInput) {
-            this.context.domElement.addEventListener("pointermove", this.onPointerMove)
+        if (this.enableDesktopInput) {
+            window.addEventListener("pointermove", this.pointerMoveFn)
         }
 
         // register gamepad events
-        window.addEventListener("gamepadconnected", (e) => {
-            // https://w3c.github.io/gamepad/#remapping
-            // we're always using the last connected gamepad here
-            if (e.gamepad.mapping == "standard") this.gamepadIndex = e.gamepad.index; 
+        window.addEventListener("gamepadconnected", this.gamePadConnFn);
+        window.addEventListener("gamepaddisconnected", this.gamePadDisconnFn);
+
+        // Register pointer event so we can lock the cursor.
+        // We need to request the lock as a direct interaction consequence on Safari, otherwise it will be rejected.
+        window.addEventListener("pointerdown", () => {
+            if (this.enableDesktopInput && !LockPointer2.IsLocked && !this.isMobile) {
+                this.lock.lock();
+            }
         });
-
-        window.addEventListener("gamepaddisconnected", (e) => {
-            if (this.gamepadIndex == e.gamepad.index) this.gamepadIndex = null;
-        });
-
-        if(this.isLocalPlayer()) {
-            this.gameObject.getComponent(SyncedTransform)?.requestOwnership();
-        }
-        else {
-            this.setCharacter(false);
-        }
-
-        this.calculateYRot();
     }
 
-    calculateYRot() { 
+    protected unregisterInput() {
+        window.removeEventListener("pointermove", this.pointerMoveFn)
+        window.removeEventListener("gamepadconnected", this.gamePadConnFn);
+        window.removeEventListener("gamepaddisconnected", this.gamePadDisconnFn);
+    }
+
+    protected onOwnerChanged() {
+        if (this.destroyed) return;
+
+        if (!this.isInitialized)
+            this.initialize();
+
+        this.setRole(this.isLocalPlayer());
+    }
+
+    protected calculateYRot() {
         //adjust Y to reflect the current rotation
         const charFwd = new Vector3();
         this.yRotTarget?.getWorldDirection(charFwd);
         charFwd.y = 0; // flatten
         charFwd.normalize();
-        
+
         // calculate signed angle
         const wFwd = new Vector3(0, 0, 1);
         const wRight = new Vector3(1, 0, 0);
@@ -165,76 +187,83 @@ export class FirstPersonControllerShmoji extends Behaviour {
         return isLocal || !this.isMultiplayer();
     }
 
-    setCharacter(enabled: boolean): void {
-        if(this.controller) {
-            this.controller.enabled = enabled;
-            this.controller.rigidbody.isKinematic = !enabled;
+    /**
+     * Enable player to become locally controlled or to remanin passive and expect to be driven
+     */
+    setRole(isLocal: boolean): void {
+        if (this.controller) {
+            this.controller.enabled = isLocal;
+            this.controller.rigidbody.isKinematic = !isLocal;
         };
-        this.enabled = enabled;
-         
-        // Dirty way of getting a camera, it is recommened to use a reference rather then searching for the component.
-        // Here, it is left out for simplicity.
-        const cam = this.gameObject.getComponentInChildren(Camera);
-        if(cam) {
-            cam.enabled = enabled;
+        this.enabled = isLocal;
+
+        // synchronize transform when enabled
+        if (isLocal) {
+            this.syncedTransform?.requestOwnership();
+            this.registerInput();
+        }
+        else {
+            this.unregisterInput();
+        }
+
+        // disable camera on remote players just to make sure
+        if (this.mainCamera) {
+            this.mainCamera.enabled = isLocal;
         }
     }
 
-    onBeforeRender() {       
-        if(!this.isInitialized) return;
+    onBeforeRender() {
+        if (!this.isInitialized) return;
 
-        // Lock the pointer on desktop if it isn't already locked
-        if (this.enableDesktopInput && !LockPointerShmoji.IsLocked && this.context.input.mouseDown && !this.isMobile) {
-            this.lock.lock();
-        }
-        
         // Gather built-in input if enabled
         if (this.enableTouchInput && this.isMobile) {
             this.gatherMobileInput();
         }
 
-        if(this.enableDesktopInput && LockPointerShmoji.IsLocked) {
+        if (this.enableDesktopInput && LockPointer2.IsLocked) {
             this.gatherDesktopInput();
         }
 
-        if(this.enableGamepadInput) {
+        if (this.enableGamepadInput) {
             this.gatherGamepadInput();
         }
 
-        this.handleMove(this.moveInput, this.jumpInput, this.sprintInput);
+        this.handleMove(this.moveInput, this.jumpInput, this.sprintInput, () => this.jumpInput = false);
         this.handleLookVec(this.lookInput);
 
         // reset input
-        this.moveInput.set(0,0);
-        this.lookInput.set(0,0);
-        this.jumpInput = false;
+        this.moveInput.set(0, 0);
+        this.lookInput.set(0, 0);
         this.sprintInput = false;
     }
 
-    gatherMobileInput() {
+    protected gatherMobileInput() {
         const delta = this.context.input.getPointerPositionDelta(0);
         if (delta)
             this.lookInput.copy(delta);
     }
 
-    gatherDesktopInput() {
+    protected gatherDesktopInput() {
         const input = this.context.input;
 
         if (input.isKeyPressed("s") || input.isKeyPressed("DownArrow"))
             this.moveInput.y += -1;
-        else if (input.isKeyPressed("w") || input.isKeyPressed("UpArrow")) 
+        else if (input.isKeyPressed("w") || input.isKeyPressed("UpArrow"))
             this.moveInput.y += 1;
-        if (input.isKeyPressed("d") || input.isKeyPressed("RightArrow")) 
+        if (input.isKeyPressed("d") || input.isKeyPressed("RightArrow"))
             this.moveInput.x += 1;
-        else if (input.isKeyPressed("a") || input.isKeyPressed("LeftArrow")) 
+        else if (input.isKeyPressed("a") || input.isKeyPressed("LeftArrow"))
             this.moveInput.x += -1;
 
         // get jump, if true keep it true
-        this.jumpInput = this.jumpInput || input.isKeyDown(" ");
-        this.sprintInput = this.sprintInput || input.isKeyPressed("Shift");
+        if (input.isKeyDown(" "))
+            this.jumpInput ||= true;
+        else if (input.isKeyUp(" "))
+            this.jumpInput = false;
+        this.sprintInput ||= input.isKeyPressed("Shift");
     }
 
-    gatherGamepadInput() { 
+    protected gatherGamepadInput() {
         if (this.gamepadIndex === null) {
             return;
         }
@@ -247,46 +276,46 @@ export class FirstPersonControllerShmoji extends Behaviour {
         const sanitize = this.sanitzeGamepadAxis.bind(this); // sanitize helper method
 
         // TODO: lacking acceleration for look input
-        if(gamepad.axes.length >= 2) { 
+        if (gamepad.axes.length >= 2) {
             this.lookInput.x += sanitize(gamepad.axes[0]) * this.gamepadLookSensitivity;
             this.lookInput.y += sanitize(gamepad.axes[1]) * this.gamepadLookSensitivity;
         }
 
-        if(gamepad.axes.length >= 4) { 
+        if (gamepad.axes.length >= 4) {
             this.moveInput.x += sanitize(gamepad.axes[2]);
             this.moveInput.y += sanitize(-gamepad.axes[3]);
         }
-        
+
         // (DualShock 4)
         // X, R3, R1, R2
-        this.jumpInput = this.jumpInput || this.getGamepadButtons(gamepad, [0, 4, 5, 6]);
+        this.jumpInput ||= this.getGamepadButtons(gamepad, [0, 4, 5, 6]);
         // L1, L2
-        this.sprintInput = this.sprintInput || this.getGamepadButtons(gamepad, [7, 11]);
+        this.sprintInput ||= this.getGamepadButtons(gamepad, [7, 11]);
     }
 
-    getGamepadButtons(gamepad: Gamepad, indexes: number[]): boolean {
+    protected getGamepadButtons(gamepad: Gamepad, indexes: number[]): boolean {
         let result = false;
 
         indexes.forEach(index => {
             result = result || gamepad.buttons[index]?.pressed || false;
         });
-        
+
         return result;
     }
 
-    sanitzeGamepadAxis(input: number): number {
-        if(input == null)
+    protected sanitzeGamepadAxis(input: number): number {
+        if (input == null)
             return 0;
 
-        if(input >= -this.gamepadDeadzone && input <= this.gamepadDeadzone)
+        if (input >= -this.gamepadDeadzone && input <= this.gamepadDeadzone)
             input = 0;
 
         return input;
     }
 
-    protected onPointerMove = (ptr: PointerEvent) => {
+    protected onPointerMove(ptr: PointerEvent) {
         if (ptr instanceof MouseEvent) {
-            if (!LockPointerShmoji.IsLocked || this.isMobile || !this.enabled)
+            if (!LockPointer2.IsLocked || this.isMobile || !this.enabled)
                 return;
 
             // immediately apply input otherwise it gets lost / delayed
@@ -294,28 +323,39 @@ export class FirstPersonControllerShmoji extends Behaviour {
         }
     }
 
-    // @nonSerialized
+    protected onGamepadConnected(e: GamepadEvent) {
+        // https://w3c.github.io/gamepad/#remapping
+        // we're always using the last connected gamepad here
+        if (e.gamepad.mapping == "standard") {
+            this.gamepadIndex = e.gamepad.index;
+        }
+    }
+
+    protected onGamepadDisconnected(e: GamepadEvent) {
+        if (this.gamepadIndex == e.gamepad.index) this.gamepadIndex = null;
+    }
+
     move(input: Vector2) {
-        this.moveInput = input;
+        this.moveInput.copy(input);
     }
 
     jump() {
         this.jumpInput = true;
     }
 
-    // @nonSerialized
     sprint(state: boolean) {
-        this.jumpInput = state;
+        this.sprintInput = state;
     }
 
-    // Input: delta mouse position
-    // @nonSerialized
+    /**
+     * Input: delta mouse position
+    */
     look(input: Vector2) {
         this.lookInput.copy(input);
     }
 
     // apply movement to the targets
-    protected handleLookVec(look: Vector2) { 
+    protected handleLookVec(look: Vector2) {
         this.handleLookNum(look.x, look.y);
     }
 
@@ -329,11 +369,11 @@ export class FirstPersonControllerShmoji extends Behaviour {
         this.y += y;
 
         this.yRotTarget?.setRotationFromAxisAngle(this.upVector, this.y);
-        
+
         // setting the eulers directly since we want to keep a 180 rot on Y axis.
         // setting the rotation via fromAxisAngle results in 0 rot on Y axis.
         // CATION: can cause gimbal lock
-        if(this.xRotTarget) {
+        if (this.xRotTarget) {
             this.xRotTarget.rotation.x = -this.x + Math.PI;
         }
     }
@@ -341,22 +381,23 @@ export class FirstPersonControllerShmoji extends Behaviour {
     // temp vectors to prevent extra alocations
     private moveDir = new Vector3();
     private fwdDir = new Vector3();
-    private upDir = new Vector3(0,1,0);
+    private upDir = new Vector3(0, 1, 0);
     private rightDir = new Vector3();
     private jumpVec = new Vector3();
+    private zeroValue = new Vector3();
 
     // Apply movemnt and jump input
-    protected handleMove(move: Vector2, jump: boolean, sprint: boolean) {
+    protected handleMove(move: Vector2, jump: boolean, sprint: boolean, onJump?: () => void) {
         if (!this.controller) return;
 
         const deltaTime = this.context.time.deltaTime;
-    
+
         // calculate directional vectors
         this.gameObject.getWorldDirection(this.fwdDir);
         this.rightDir.crossVectors(this.upDir, this.fwdDir);
 
         // calculate movement direction
-        this.moveDir.set(0,0,0);
+        this.moveDir.set(0, 0, 0);
 
         this.moveDir.add(this.fwdDir.multiplyScalar(move.y));
         this.moveDir.add(this.rightDir.multiplyScalar(-move.x));
@@ -365,20 +406,45 @@ export class FirstPersonControllerShmoji extends Behaviour {
         this.moveDir.clampLength(0, 1);
 
         // apply speed and delta time so it's framerate independent
-        const speed = sprint ? this.sprintSpeed: this.movementSpeed;
+        const speed = sprint ? this.sprintSpeed : this.movementSpeed;
         this.moveDir.multiplyScalar(speed * deltaTime);
 
-        // move the character controller
-        this.controller.move(this.moveDir);
+        const rigidbody = this.controller.rigidbody;
 
         // handle jump
-        if(jump && this.controller.isGrounded) {
-            const rb = this.controller.rigidbody;
-
+        if (jump && this.controller.isGrounded) {
             // calculate & apply impulse vector
-            this.jumpVec.set(0,1,0);
+            this.jumpVec.set(0, 1, 0);
             this.jumpVec.multiplyScalar(this.jumpSpeed)
-            rb.applyImpulse(this.jumpVec);
+
+            // reset Y velcoity
+            const vel = rigidbody.getVelocity();
+            vel.y = 0;
+            rigidbody.setVelocity(vel);
+
+            // apply impulse
+            rigidbody.applyImpulse(this.jumpVec);
+
+            // callback
+            onJump?.();
         }
+
+        // move the character controller
+        rigidbody.applyImpulse(this.moveDir);
+
+        // clamp max speed while not effecting Y velocity
+        const vel = rigidbody.getVelocity();
+        const origY = vel.y;
+
+        // clamp and decay velocity
+        const max = sprint ? this.maxSprintSpeed : this.maxSpeed;
+        vel.y = 0;
+        vel.clampLength(0, max);
+
+        // restore Y velocity
+        vel.y = origY;
+
+        // apply adjusted velocity
+        rigidbody.setVelocity(vel);
     }
 }

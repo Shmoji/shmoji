@@ -31,7 +31,7 @@ export default function FPSExperiment() {
             // left: '0',
             zIndex: '0'
           }}
-          src="/assets/fpsExperiment.glb"
+          src="/assets/scene.glb"
         />
 
       </div>

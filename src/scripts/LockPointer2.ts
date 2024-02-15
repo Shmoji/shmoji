@@ -1,19 +1,19 @@
 import { getParam } from "@needle-tools/engine";
 import { EventDispatcher } from "three";
 
-const _changeEvent = { type: 'change' } as never;
-const _lockEvent = { type: 'lock' } as never
-const _unlockEvent = { type: 'unlock' } as never
+const _changeEvent = { type: 'change' };
+const _lockEvent = { type: 'lock' };
+const _unlockEvent = { type: 'unlock' };
 
 // https://github.com/mrdoob/three.js/blob/master/examples/jsm/controls/PointerLockControls.js
-// TODO: is it a good practice to maintain it's own version of PointerLock? Since we are only interested in the locking.
+// TODO: is it a good practice to maintain it's own version of LockPointer2? Since we are only interested in the locking.
 // TODO: is LOCK API supported on mobile/touch devices?
 // TODO: add support/mode for touch devices / mobile so "IsLocked" is always true
 
 var debug = getParam("pointerlockdebug");
 
 // @dont-generate-component
-export class LockPointerShmoji extends EventDispatcher {
+export class LockPointer2 extends EventDispatcher {
 
     domElement: HTMLElement;
 
@@ -86,7 +86,7 @@ export class LockPointerShmoji extends EventDispatcher {
 
     onMouseMove() {
 
-        if (LockPointerShmoji.IsLocked === false)
+        if (LockPointer2.IsLocked === false)
 			return;
     
         this.dispatchEvent( _changeEvent );
@@ -97,17 +97,17 @@ export class LockPointerShmoji extends EventDispatcher {
         if (this.domElement.ownerDocument.pointerLockElement === this.domElement) {
     
             this.dispatchEvent(_lockEvent);
-            LockPointerShmoji.IsLocked = true;
+            LockPointer2.IsLocked = true;
         } 
 		else {
     
             this.dispatchEvent(_unlockEvent);
-            LockPointerShmoji.IsLocked = false;
+            LockPointer2.IsLocked = false;
         }
     }
     
     onPointerlockError() {
     
-        console.error("PointerLock: Unable to use Pointer Lock API");
+        console.error("LockPointer2: Unable to use Pointer Lock API");
     }
 }
