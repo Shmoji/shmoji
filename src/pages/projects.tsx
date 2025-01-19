@@ -7,6 +7,7 @@ const Projects = () => {
     <div className="flex flex-col items-center">
       <div className="text-4xl font-bold mb-4">All Projects</div>
       <div className="flex flex-col items-center space-y-6 text-blue-500">
+        <span><A href="https://whyspia.com">whyspia</A></span>
         <span><A href="/coding">Coding</A></span>
         <span><A href="/ideamarket">Ideamarket</A></span>
         <span><A href="/gaming">Gaming</A></span>
