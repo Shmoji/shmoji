@@ -3,9 +3,17 @@
 
 const isServer = () => typeof window === `undefined`;
 
-import "@needle-tools/engine"
-import { NeedleEngineAttributes } from "@needle-tools/engine";
 import { useEffect, useState } from "react";
+
+// Only import needle-tools/engine on the client side
+let NeedleEngineModule: any;
+if (!isServer()) {
+  import("@needle-tools/engine").then((module) => {
+    NeedleEngineModule = module;
+  }).catch((e) => {
+    console.error("Failed to load @needle-tools/engine:", e);
+  });
+}
 
 // Make addEventListener optional
 export type NeedleEngineProps = Omit<NeedleEngineAttributes, 'addEventListener'> & { addEventListener?: (event: CustomEvent) => void };
@@ -18,29 +26,40 @@ export type NeedleEngineProps = Omit<NeedleEngineAttributes, 'addEventListener'>
  * 
  */
 export default function NeedleEngine({ ...props }): JSX.Element {
-
-  const [src, setSrc] = useState(props?.src)
+  const [src, setSrc] = useState(props?.src);
+  const [engineLoaded, setEngineLoaded] = useState(false);
 
   useEffect(() => {
-    console.log('useEffect called')
-    // lazy import the codegen if no explicit src is defined
     if (!isServer()) {
+      // First ensure the engine module is loaded
+      if (!engineLoaded) {
+        import("@needle-tools/engine").then(() => {
+          setEngineLoaded(true);
+        }).catch((e) => {
+          console.error("Failed to load @needle-tools/engine:", e);
+        });
+      }
+
+      // Then try to load the generated code
       import("../../../generated/gen")
         .then((m) => {
           if (props?.src === undefined) {
-              console.log('setting src to==', m.needle_exported_files)
-              setSrc(m.needle_exported_files)
+            console.log('setting src to==', m.needle_exported_files);
+            setSrc(m.needle_exported_files);
           }
         })
         .catch((e) => {
-          console.error(e)
+          console.error("Failed to load generated code:", e);
         });
     }
-  }, [])
+  }, []);
 
-  if (!isServer()) {
-    return <needle-engine src={src} {...props}></needle-engine>
+  if (!isServer() && engineLoaded) {
+    return <needle-engine src={src} {...props}></needle-engine>;
   }
 
-  return null
+  return null;
 }
+
+// Add this type import at the top if needed
+import type { NeedleEngineAttributes } from "@needle-tools/engine";
