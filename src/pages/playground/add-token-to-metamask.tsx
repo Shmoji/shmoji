@@ -5,6 +5,11 @@ const AddTokenToMetaMask = () => {
   const addTokenToMM = async () => {
     try {
       const { ethereum } = window as any
+      if (!ethereum) {
+        alert('MetaMask is not installed')
+        return
+      }
+      
       await ethereum.request({
         method: 'wallet_watchAsset',
         params: {
@@ -18,10 +23,8 @@ const AddTokenToMetaMask = () => {
         },
       })
     } catch (ex) {
-      // We don't handle that error for now
-      // Might be a different wallet than Metmask
-      // or user declined
       console.error(ex)
+      alert('Failed to add token to MetaMask')
     }
   }
 

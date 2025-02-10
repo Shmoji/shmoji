@@ -13,7 +13,7 @@ const ContactMe = () => {
   return (
     <div className="flex flex-col items-center">
 
-      <div className="text-4xl font-bold mb-8">Contact Me</div>
+      <div className="text-4xl font-bold mb-8">contact me</div>
 
       <div className="w-full md:px-10 flex flex-col items-center space-y-6">
         <button

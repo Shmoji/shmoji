@@ -5,13 +5,18 @@ import DefaultLayout from "components/layouts/DefaultLayout"
 const Projects = () => {
   return (
     <div className="flex flex-col items-center">
+      <div className="flex items-center mb-4 text-gray-300">
+        <A href="/" className="text-blue-600 mr-1">home</A> / 
+        <A href="/all" className="text-blue-600 mx-1">all</A> / 
+        <div className="ml-1">projects</div>
+      </div>
       <div className="text-4xl font-bold mb-4">all projects</div>
       <div className="flex flex-col items-center space-y-6 text-blue-500">
         <span><A href="https://whyspia.com">whyspia</A></span>
         <span><A href="/games">games</A></span>
+        <span><A href="/gaming">gaming content</A></span>
         <span><A href="/coding">coding</A></span>
         <span><A href="/ideamarket">ideamarket</A></span>
-        <span><A href="/gaming">gaming content</A></span>
         <span><A href="/music">music</A></span>
         <span><A href="/livestreaming">livestreaming</A></span>
         <span><A href="/stories">stories</A></span>

@@ -69,12 +69,12 @@ export default function Home() {
       ) : (
         <div className="text-center px-4 relative z-40">
 
-          <div className="text-2xl font-bold">Why are you here? What do you desire?</div>
+          {/* <div className="text-2xl font-bold">Why are you here? What do you desire?</div> */}
 
           <div className="flex flex-wrap justify-center mt-6">
             
             
-            <button className="flex items-center p-3 mb-4 mr-2 bg-red-500 text-white rounded-lg hover:bg-red-600 opacity-50">
+            {/* <button className="flex items-center p-3 mb-4 mr-2 bg-red-500 text-white rounded-lg hover:bg-red-600 opacity-50">
               adventure<Tooltip tooltipContent={"coming soon..."}><QuestionMarkCircleIcon className="w-4 h-4" /></Tooltip>
             </button>
             
@@ -89,7 +89,7 @@ export default function Home() {
 
             <button className="flex items-center p-3 mb-4 mr-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 opacity-50">
               idk what i want<Tooltip tooltipContent={"coming soon..."}><QuestionMarkCircleIcon className="w-4 h-4" /></Tooltip>
-            </button>
+            </button> */}
 
             <A
               href="/all"

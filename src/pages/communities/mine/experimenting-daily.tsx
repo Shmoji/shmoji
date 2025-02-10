@@ -24,7 +24,7 @@ const ExperimentingDaily = () => {
         >
           <Image src={Discord} alt="Discord" width={24} height={24} />
           
-          <div>Join Discord</div>
+          <div>join discord</div>
         </div>
       </div>
     </div>

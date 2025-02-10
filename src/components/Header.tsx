@@ -2,15 +2,11 @@
 import { Router, useRouter } from 'next/dist/client/router'
 import Image from 'next/image'
 import { useState, useEffect, useContext } from 'react'
-import WalletStatus from 'components/wallet/WalletStatus'
 import { MenuIcon, XCircleIcon } from '@heroicons/react/solid'
 import NProgress from 'nprogress'
 import A from './A'
-import ModalService from 'components/modals/ModalService'
 import classNames from 'classnames'
 import Discord from '../assets/discord.svg'
-import WalletModal from './wallet/WalletModal'
-import ToggleSwitch from 'modules/forms/components/ToggleSwitch'
 import { GlobalContext } from 'lib/GlobalContext'
 
 type MenuItemType = {
@@ -55,7 +51,7 @@ export default function Header() {
             >
               <img src="/ShmojiChibiTransparent.png" className="w-12" alt="shmoji-icon" />
               <span className="w-auto h-full ml-2 text-2xl leading-none text-white md:text-3xl">
-                Shmoji
+                shmoji
               </span>
             </div>
 
@@ -67,7 +63,7 @@ export default function Header() {
             >
               <Image src={Discord} alt="Discord" width={24} height={24} />
               
-              <div>Join Discord</div>
+              <div>join discord</div>
             </div>
 
             {/* <div className="flex items-center">
@@ -105,11 +101,10 @@ export default function Header() {
             </div>
 
             <div className="z-20 hidden md:ml-6 md:flex md:items-center">
-              {/* <WalletStatus openModal={() => ModalService.open(WalletModal)} /> */}
               <A
                 href="/ContactMe"
               >
-                📞 Contact Me
+                📞 contact me
               </A>
             </div>
 
@@ -163,11 +158,10 @@ export default function Header() {
             ))}
 
             <div className="flex justify-center mt-5">
-              {/* <WalletStatus openModal={() => ModalService.open(WalletModal)} /> */}
               <A
                 href="/ContactMe"
               >
-                📞 Contact Me
+                📞 contact me
               </A>
             </div>
           </div>

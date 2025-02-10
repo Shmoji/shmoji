@@ -6,7 +6,9 @@ const Health = () => {
     <div className="flex flex-col items-center">
 
       <div className="flex items-center mb-4 text-gray-300">
-        <A href="/" className="text-blue-600 mr-1">home</A> / <div className="ml-1">health</div>
+        <A href="/" className="text-blue-600 mr-1">home</A> / 
+        <A href="/all" className="text-blue-600 mx-1">all</A> /
+        <div className="ml-1">health</div>
       </div>
 
       <div className="text-4xl font-bold mb-4">Health and Longevity</div>
